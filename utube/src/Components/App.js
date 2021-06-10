@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
 import UTubeApi from '../api';
-import Navbar from './Navbar';
+import NavBar from './NavBar';
 import FormContext from '../FormContext';
 import useLocalStorage from '../hooks/useLocalStorage';
 import './App.css';
@@ -77,7 +77,7 @@ function App() {
     <div className="App">
       <FormContext.Provider value={formFunctions}>
         <BrowserRouter>
-          <Navbar 
+          <NavBar 
             isLoggedIn={isLoggedIn} 
             setIsLoggedIn={setIsLoggedIn}
           />
