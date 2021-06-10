@@ -1,0 +1,112 @@
+.UTube-navbar {
+  background-color: rgb(16, 16, 16);
+  height: 3em;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.UTubeLogo {
+  width: 1.3em;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
+  margin-top: -0.1em; 
+}
+
+.navbarBrand {
+  margin-left: -0.5em;
+}
+
+.collapseMenu {
+  background-color: rgb(38, 38, 38);
+}
+
+.menuButton {
+  margin-top: -0.3em;
+  margin-left: 1em;
+  /* background-image: url('hamburger_icon.png'); */
+  padding: -0.5em !important;
+}
+
+.navbar-toggler-icon .navbar-toggler {
+  width: 3em;
+
+} 
+
+.navbar-brand {
+  
+} 
+
+.navbar-sign-in-button {
+  margin-right: 1em;
+  margin-top: -0.3em;
+  width: 7em;
+  height: 2.4em;
+  font-size: 0.9em !important;
+  text-align: right;
+  border-radius: 0;
+}
+
+.default-avatar-icon {
+  width: 1.4em;
+  float: left;
+  margin-top: 0.05em;
+  margin-right: 0.4em;
+  margin-left: -0.15em;
+}
+
+.video-title-search-form {
+  text-align: center;
+}
+
+.video-title-search-form input {
+  padding-left: 0.5em;
+  font-weight: 500;
+  color: white;
+}
+
+.video-title-search-input {
+  border-width: 0.05em;
+  border-color: rgb(67, 67, 67);
+  margin-bottom: 0.4em;
+  background-color: rgb(19, 19, 19);
+  color: rgb(184, 182, 182);
+  border-radius: 0;
+  width: 35vw;
+}
+
+.video-title-search-button {
+  width: 3.3em;
+  height: 1.76em;
+  margin-left: 1px;
+  text-align: center;
+  border-width: 0em;
+  background-color: rgb(50, 50, 50);
+}
+
+.video-title-search-button-icon {
+  width: 0.9em;
+  margin-bottom: 0.15em;
+}
+
+
+
+
+
+
+.nav-item {
+  width: 105px;
+  text-align: left;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+nav a {
+  color: #f0f2f5;
+  text-decoration: none;
+}
+    
+nav a.active {
+  color: #f0f2f5;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+    
