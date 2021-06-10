@@ -1,5 +1,5 @@
 .UTube-navbar {
-  background-color: rgb(16, 16, 16);
+  background-color: rgb(20, 20, 20);
   height: 3em;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
@@ -15,21 +15,81 @@
   margin-left: -0.5em;
 }
 
+
+.collapse-menu-brand-div {
+  height: 2.3em;
+  margin-top: 0.25em;
+}
+
+.collapse-menu-hamburger-button {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border-width: 0;
+  margin-left: 1.1em;
+  margin-right: 0.15em;
+  padding-left: 0;
+  background-color: rgb(24, 24, 24);
+}
+
+.collapse-menu-hamburger-icon {
+  width: 1.95em;
+  height: 2em;
+  margin-bottom: 0.15em;
+  margin-left: 0.2em;
+}
+
+.UTube-icon-side-bar {
+  /* margin-left: 4em; */
+}
+
+
+.UTubeLogo-sidebar {
+  width: 1.3em;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
+  margin-top: -0.1em; 
+}
+
+
+
+
 .collapseMenu {
-  background-color: rgb(38, 38, 38);
+  width: 13.5em;
+  height: 100vh;
+  background-color: rgb(24, 24, 24);
+  margin-top: -2.9em;
+}
+
+.collapse-menu-div {
+  width: 29em;
+  height: 100vh;
+}
+
+.collapse-menue-sign-in-button-div {
+  text-align: center;
+}
+
+.collapse-menue-sign-in-button-div p {
+  text-align: left;
+  font-size: 0.8em;
+  margin-left: 2.25em;
+  padding-right: 1.25em;
+  color: white;
+}
+
+.font-awesome-menu-icon {
+  color: rgb(155, 155, 155);
+  margin-right: 1em;
+  margin-left: 0.5em;
+  font-size: 1.4em !important;
 }
 
 .menuButton {
   margin-top: -0.3em;
   margin-left: 1em;
   /* background-image: url('hamburger_icon.png'); */
-  padding: -0.5em !important;
 }
-
-.navbar-toggler-icon .navbar-toggler {
-  width: 3em;
-
-} 
 
 .navbar-brand {
   
@@ -43,6 +103,17 @@
   font-size: 0.9em !important;
   text-align: right;
   border-radius: 0;
+}
+
+.sidebar-sign-in-button {
+  margin-right: 4em;
+  margin-top: -0.3em;
+  width: 7.2em;
+  height: 2.4em;
+  font-size: 0.9em !important;
+  text-align: right;
+  border-radius: 0;
+  border-width: 0.2em;
 }
 
 .default-avatar-icon {
@@ -70,7 +141,9 @@
   background-color: rgb(19, 19, 19);
   color: rgb(184, 182, 182);
   border-radius: 0;
-  width: 35vw;
+  min-width: 5em;
+  width: 40vw;
+  max-width: 40em;
 }
 
 .video-title-search-button {
@@ -88,15 +161,17 @@
 }
 
 
-
-
-
+hr {
+  color: gray !important;
+}
 
 .nav-item {
-  width: 105px;
+  min-width: 10em;
   text-align: left;
-  margin-left: 1em;
-  margin-top: 1em;
+  margin-left: 0.8em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  font-size: 0.85em;
 }
 
 nav a {
