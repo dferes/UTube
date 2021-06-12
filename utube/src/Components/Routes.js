@@ -4,6 +4,7 @@ import Home from './Home';
 import Signup from './Signup';
 import Login from './Login';
 import Profile from './Profile';
+import VideoList from './VideoList';
 
 
 const Routes = ( props ) => {
@@ -15,9 +16,12 @@ const Routes = ( props ) => {
       <Route exact path='/profile'>
         <Profile />
       </Route>
+      <Route exact path='/search'>
+        <VideoList />
+      </Route>
       <Route exact path='/signup'>
         {/* <Signup errorMessage={errorMessage} /> */}
-        <Signup  />
+        <Signup />
       </Route>
       <Route exact path='/login'>
         {/* <Login errorMessage={errorMessage} /> */}
