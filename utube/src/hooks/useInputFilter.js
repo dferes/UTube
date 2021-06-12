@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UTubeApi from '../api';
 
 
-const useInputFilter = ({ defaultList=[], apiMethod, termKey, globalUpdateFunction }) => {
+const useInputFilter = ({ defaultList=[], apiMethod, termKey='', globalUpdateFunction }) => {
   const [ filter, setFilter ] = useState({ [termKey]: ''});
     
   const handleChange = evt => {
