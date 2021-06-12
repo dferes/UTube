@@ -1,5 +1,5 @@
 .UTube-navbar {
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(32, 32, 32);
   height: 3em;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
@@ -18,7 +18,8 @@
 
 .collapse-menu-brand-div {
   height: 2.3em;
-  margin-top: 0.25em;
+  margin-top: 0.15em;
+  margin-bottom: 2.5em;
 }
 
 .collapse-menu-hamburger-button {
@@ -29,7 +30,7 @@
   margin-left: 1.1em;
   margin-right: 0.15em;
   padding-left: 0;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(32, 32, 32);
 }
 
 .collapse-menu-hamburger-icon {
@@ -52,12 +53,10 @@
 }
 
 
-
-
 .collapseMenu {
-  width: 13.5em;
+  width: 15em;
   height: 100vh;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(32, 32, 32);
   margin-top: -2.9em;
 }
 
@@ -88,7 +87,6 @@
 .menuButton {
   margin-top: -0.3em;
   margin-left: 1em;
-  /* background-image: url('hamburger_icon.png'); */
 }
 
 .navbar-brand {
@@ -131,6 +129,7 @@
 .video-title-search-form input {
   padding-left: 0.5em;
   font-weight: 500;
+  font-size: 1.1em;
   color: white;
 }
 
@@ -144,12 +143,14 @@
   min-width: 5em;
   width: 40vw;
   max-width: 40em;
+  height: 1.8em;
 }
 
 .video-title-search-button {
-  width: 3.3em;
-  height: 1.76em;
+  width: 3.6em;
+  height: 2em;
   margin-left: 1px;
+  padding-top: 1px;
   text-align: center;
   border-width: 0em;
   background-color: rgb(50, 50, 50);
@@ -168,20 +169,24 @@ hr {
 .nav-item {
   min-width: 10em;
   text-align: left;
-  margin-left: 0.8em;
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-  font-size: 0.85em;
+  margin-left: 1.2em;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 3em;
+  font-size: 0.9em;
+}
+
+.nav-item:hover {
+  background-color: rgb(64, 64, 64);
 }
 
 nav a {
-  color: #f0f2f5;
+  color: white;
   text-decoration: none;
 }
     
 nav a.active {
-  color: #f0f2f5;
-  font-weight: bold;
+  color: white;
   box-sizing: border-box;
 }
     
