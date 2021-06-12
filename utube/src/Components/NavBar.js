@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavbarBrand, NavbarToggler, Collapse, Button } from 'reactstrap';
+import useInputFilter from '../hooks/useInputFilter';
 import './NavBar.css';
 import UserContext from '../FormContext';
-import useInputFilter from '../hooks/useInputFilter';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -18,19 +18,30 @@ const searchButtonIcon = process.env.PUBLIC_URL + 'images/search_glass_symbol.pn
 const sidebarMenuIcon = process.env.PUBLIC_URL + 'images/hamburger_icon5.png';
 
 
-const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
-  const { user } = useContext(UserContext);
+const NavBar = () => {
+  // const { user, videoSearchList, setVideoSearchList, isLoggedIn } = useContext(UserContext);
+  const { videoSearchList, setVideoSearchList, isLoggedIn } = useContext(UserContext);
   const [collapsed, setCollapsed] = useState(true);
+  const [ formSubmit, setFormSubmit ] = useState(false);
+  const history = useHistory();
 
-  const toggleNavbar = () => setCollapsed(!collapsed);
-
-  const [ 
-    resultList, 
+  const [  
     filter, 
     handleChange, 
-    handleSubmit, 
-    isEmpty 
-  ] = useInputFilter({ defaultList: [] , apiMethod: 'videoSearch', termKey: 'title'} );
+    handleSubmit
+  ] = useInputFilter({ apiMethod: 'videoSearch', termKey: 'title', globalUpdateFunction: setVideoSearchList} );
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+  
+  useEffect( () => {
+    const goToResultsPage = async () => {
+      await setFormSubmit(false);
+      history.push('/search');
+    }
+
+    if(formSubmit) goToResultsPage();
+    
+  }, [videoSearchList, formSubmit, setFormSubmit, history]);
 
   return (
     <div>
@@ -43,7 +54,10 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
         </div>
 
         <div className='video-search-div'>
-          <form className='video-title-search-form' onSubmit={handleSubmit}>
+          <form className='video-title-search-form' onSubmit={ async (evt) => {
+            await handleSubmit(evt);
+            await setFormSubmit(true);
+          } }>
             <label htmlFor='video-title-search' />
             <input 
               className='video-title-search-input'
@@ -63,7 +77,7 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
         </div>
         { !isLoggedIn &&
           <Button outline color='primary' className='navbar-sign-in-button'>SIGN IN
-          <img className='default-avatar-icon' src={defaultAvatarImage} alt=''></img>
+          <img className='default-avatar-icon' src={defaultAvatarImage} alt='' />
           </Button> 
         }
         <div className='collapse-menu-div'>
@@ -78,7 +92,6 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
             </NavbarBrand>
           </div>
           
-          <hr/>
           <Nav navbar> 
             <NavItem>
               <FontAwesomeIcon icon={faHome} className="font-awesome-menu-icon" /> 
