@@ -1,5 +1,5 @@
 // import React, { useState, useEffect } from 'react';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
 // import UTubeApi from '../api';
@@ -8,20 +8,42 @@ import FormContext from '../FormContext';
 import useLocalStorage from '../hooks/useLocalStorage';
 // import useInputFilter from '../hooks/useInputFilter';
 import './App.css';
+import UTubeApi from '../api';
 
 
 function App() {
   // const [ loginFormData, setLoginFormData ] = useState({});
   // const [ signupFormData, setSignupFormData ] = useState( {} );
   // const [ userFormData, setUserFormData ] = useState({});
+  const [ videoCardClicked, setVideoCardClicked] = useState(null);
 
   // const [ userToken, setUserToken ] = useLocalStorage('userToken', '');
   const [ user, setUser ] = useLocalStorage('user',  {} );
   const [ isLoggedIn, setIsLoggedIn ] = useLocalStorage('isLoggedIn', false);
   const [ videoSearchList, setVideoSearchList ] = useLocalStorage('videoSearchList', []);
+  const [ allVideoList, setAllVideoList ] = useLocalStorage('allVideoList', []);
+  const [ currentVideo, setCurrentVideo ] = useLocalStorage('currentVideo', {});
   // const [ errorMessage, setErrorMessage ] = useState({});
   // const [ showSuccessMessage, setShowSuccessMessage ] = useState(false);
 
+  useEffect( () => {
+    const setHomePageVideos = async () => {
+      setAllVideoList( await UTubeApi.videoSearch());
+    }
+    setHomePageVideos();
+  }, [setAllVideoList]);
+
+
+  useEffect( () => {
+    const setCurrentVideoToWatch = async (videoCardClicked) => {
+      setCurrentVideo( await UTubeApi.getVideo(videoCardClicked));
+    }
+
+    if(videoCardClicked){
+      setCurrentVideoToWatch( videoCardClicked );
+      setVideoCardClicked(null);
+    }
+  }, [setCurrentVideo, videoCardClicked, setVideoCardClicked]);
 
   /** Logs the user out if isLoggedIn changes to false */
   // useEffect( () => {
@@ -73,7 +95,11 @@ function App() {
     videoSearchList: videoSearchList,
     setVideoSearchList: setVideoSearchList,
     isLoggedIn: isLoggedIn,
-    setIsLoggedIn: setIsLoggedIn
+    setIsLoggedIn: setIsLoggedIn,
+    allVideoList: allVideoList,
+    setAllVideoList: setAllVideoList,
+    currentVideo: currentVideo,
+    setVideoCardClicked: setVideoCardClicked
     // handleFormChange: handleFormChange,
     // handleFormSubmit: handleFormSubmit,
     // loginFormData: loginFormData,
