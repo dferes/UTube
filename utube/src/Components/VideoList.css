@@ -1,0 +1,41 @@
+.video-search-result-list {
+  margin-top: 3.5em;  
+  text-align: center;
+  height: 100vh;
+}
+
+
+
+.video-search-result-hr {
+  width: 73vw;
+  float: right;
+  margin-right: 6em;
+  margin-bottom: 1.5em;
+  margin-top: -0.5em;
+}
+
+.no-results-div {
+  width: 73vw;
+  float: right;
+  margin-right: 6em;
+  margin-top: 5em;
+}
+
+.no-results-image {
+  width: 27em;
+  margin-right: 5em;
+}
+
+.no-results-msg {
+  font-size: 1.5em;
+  color: white;
+  text-align: center;
+  margin-right: 4.5em;
+  margin-top: 1em;
+}
+
+.no-results-msg-small {
+  color: white;
+  text-align: center;
+  margin-right: 6.5em;
+}
