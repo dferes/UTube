@@ -1,0 +1,15 @@
+.home-video-grid-div {
+  /* background-color: rgba(138, 43, 226, 0.125); */
+  width: 95vw;
+  float: right;
+  min-height: 100vh;
+  margin-right: 2em;
+}
+
+.home-video-grid-hr {
+  width: 90.5vw;  
+  float: right;
+  margin-right: 1em;
+  margin-bottom: 1.5em;
+  margin-top: 2em;
+}
