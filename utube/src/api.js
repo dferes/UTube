@@ -84,7 +84,7 @@ class UTubeApi {
    *  Returns {username, createdAt, firstName, lastName, email, avatarImage, coverImage, about}
    * 
    *  Only username and password are required. */ 
-  static async update(formData) { 
+  static async userUpdate(formData) { 
     const { username, password } = formData;
     await this.request( // Verify the password is correct before updating user
       'auth/token', 
@@ -117,6 +117,17 @@ class UTubeApi {
 
 
   // add a user delete method here
+   
+  static async videoSearch(title) {
+    let res = await this.request(
+      'videos', 
+      title,
+      'get'
+    );
+
+    return res.videos;
+  }
+
 
 }
 
