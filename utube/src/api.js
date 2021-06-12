@@ -118,14 +118,21 @@ class UTubeApi {
 
   // add a user delete method here
    
-  static async videoSearch(title) {
+  static async videoSearch(title='') {
     let res = await this.request(
       'videos', 
       title,
       'get'
     );
-
+    
     return res.videos;
+  }
+
+
+  static async getVideo(id) {
+    let res = await this.request(`videos/${id}` );
+    
+    return res.video;
   }
 
 
