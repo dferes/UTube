@@ -4,7 +4,11 @@ import Home from './Home';
 import Signup from './Signup';
 import Login from './Login';
 import Profile from './Profile';
+import WatchVideo from './WatchVideo';
 import VideoList from './VideoList';
+import SubscriptionList from './SubscriptionList.js';
+import LibraryList from './LibraryList';
+import HistoryList from './HistoryList';
 
 
 const Routes = ( props ) => {
@@ -18,6 +22,18 @@ const Routes = ( props ) => {
       </Route>
       <Route exact path='/search'>
         <VideoList />
+      </Route>
+      <Route exact path='/watch'>
+        <WatchVideo />
+      </Route>
+      <Route exact path='/subscriptions'>
+        <SubscriptionList />
+      </Route>
+      <Route exact path='/library'>
+        <LibraryList />
+      </Route>
+      <Route exact path='/history'>
+        <HistoryList />
       </Route>
       <Route exact path='/signup'>
         {/* <Signup errorMessage={errorMessage} /> */}
