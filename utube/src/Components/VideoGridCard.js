@@ -11,9 +11,9 @@ const VideoGridCard = ({ id, createdAt, title, username, url, description, thumb
   const history = useHistory();
     
   return (
-    <div to='/watch' onClick={ async () => {
+    <div onClick={ async () => {
         await setVideoCardClicked(id);
-        history.push('/watch');
+        history.push(`/watch`);
       }}>
       {/* <Link to='/watch' > */}
       <div className='video-grid-card-div'>
@@ -22,8 +22,8 @@ const VideoGridCard = ({ id, createdAt, title, username, url, description, thumb
         </div>
         <div className='video-grid-card-body'>
           <h5 className='video-grid-card-title'>{title}</h5>
-          <small className='video-grid-card-created-at'>{createdAt}</small>
           <p className='video-grid-card-username'>{username}</p>
+          <small className='video-grid-card-created-at'>{}{createdAt}</small>
         </div>
       </div>  
     </div>  
