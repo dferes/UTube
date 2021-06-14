@@ -1,12 +1,23 @@
-import React from 'react';
+import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import UserContext from '../FormContext';
 import './VideoCard.css';
 
 const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thumbnail2.jpg';
 
 
-const VideoCard = ({ createdAt, title, username, url, description, thumbnail }) => {
+const VideoCard = ({ id, createdAt, title, username, url, description, thumbnail }) => {
+  const { setVideoCardClicked } = useContext(UserContext);
+  const history = useHistory();
+
   return (
-    <div className='video-card-wide-div'>
+    <div 
+      className='video-card-wide-div'
+      onClick={ async () => {
+        await setVideoCardClicked(id);
+        history.push(`/watch`);
+      }}
+    >
       <div className='video-card-wide-image-div'>
         <img className='video-card-wide-image' src={thumbnail? thumbnail: defaultVideoThumbnail} alt=''/>
       </div>
