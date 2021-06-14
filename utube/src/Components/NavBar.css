@@ -4,6 +4,27 @@
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
+.navbar-dropdown-menu-toggle-button {
+  background-color: rgb(24, 24, 4);
+  /* width: 10em; */
+  margin-bottom: -3.8em;
+}
+
+.collapse-menu-hamburger-icon-collapse {
+  width: 2em;
+  height: 2em;
+  margin-top: 1.65em;
+  margin-left: 1.85em;
+
+}
+
+.navbar-dropdown-menu {
+  color: rgb(24, 24, 24);
+  width: 15em;
+  height: 100vh;
+  margin-top: 0.3em;
+}
+
 .UTubeLogo {
   width: 1.3em;
   margin-right: 0.2em;
@@ -11,94 +32,29 @@
   margin-top: -0.1em; 
 }
 
-.navbarBrand {
-  margin-left: -0.5em;
+.collapse-menu-sign-in-button-div {
+  margin-top: 1em;
 }
 
-
-.collapse-menu-brand-div {
-  height: 2.3em;
-  margin-top: 0.15em;
-  margin-bottom: 2.5em;
-}
-
-.collapse-menu-hamburger-button {
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-  border-width: 0;
-  margin-left: 1.1em;
-  margin-right: 0.15em;
-  padding-left: 0;
-  background-color: rgb(32, 32, 32);
-}
-
-.collapse-menu-hamburger-icon {
-  width: 1.95em;
-  height: 2em;
-  margin-bottom: 0.15em;
-  margin-left: 0.2em;
-}
-
-.UTube-icon-side-bar {
-  /* margin-left: 4em; */
-}
-
-
-.UTubeLogo-sidebar {
-  width: 1.3em;
-  margin-right: 0.2em;
-  margin-left: 0.2em;
-  margin-top: -0.1em; 
-}
-
-
-.collapseMenu {
-  width: 15em !important;
-  height: 100vh;
-  background-color: rgb(32, 32, 32);
-  margin-top: -2.9em;
-}
-
-.collapse-menu-div {
-  /* width: 15em; */
-  width: 29em;
-  height: 100vh;
-}
-
-.collapse-menue-sign-in-button-div {
-  text-align: center;
-}
-
-.collapse-menue-sign-in-button-div p {
-  text-align: left;
-  font-size: 0.8em;
-  margin-left: 2.25em;
-  padding-right: 1.25em;
+.collapse-menu-sign-in-button-div p {
   color: white;
+  margin-left: 2em;
+  margin-right: 1em;
+  font-size: 0.9em;
 }
 
 .font-awesome-menu-icon {
   color: rgb(155, 155, 155);
   margin-right: 1em;
-  margin-left: 0.5em;
+  margin-left: 0.9em;
   font-size: 1.4em !important;
-  margin-top: 0.55em;
+  margin-top: 0.3em;
 }
-
-.menuButton {
-  margin-top: -0.3em;
-  margin-left: 1em;
-}
-
-.navbar-brand {
-  
-} 
 
 .navbar-sign-in-button {
   margin-right: 1em;
-  margin-top: -0.3em;
-  width: 7em;
+  margin-top: -0.8em;
+  width: 7.5em;
   height: 2.4em;
   font-size: 0.9em !important;
   text-align: right;
@@ -106,10 +62,10 @@
 }
 
 .sidebar-sign-in-button {
-  margin-right: 5.6em;
   margin-top: -0.3em;
-  width: 7.2em;
-  height: 2.4em;
+  margin-left: 2em;
+  width: 7.8em;
+  height: 2.6em;
   font-size: 0.9em !important;
   text-align: right;
   border-radius: 0;
@@ -138,7 +94,7 @@
 .video-title-search-input {
   border-width: 0.05em;
   border-color: rgb(67, 67, 67);
-  margin-bottom: 0.4em;
+  margin-bottom: 0.7em;
   background-color: rgb(19, 19, 19);
   color: rgb(184, 182, 182);
   border-radius: 0;
@@ -164,21 +120,24 @@
 }
 
 
-hr {
-  color: gray !important;
-}
-
 .nav-item {
-  min-width: 10em;
-  text-align: left;
-  margin-left: 1.2em;
-  margin-top: 0;
-  margin-bottom: 0;
-  height: 3em;
-  font-size: 0.9em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.2em;
 }
 
-.nav-item:hover {
+.dropdown-item {
+  height: 3em;
+  /* width: 16em; */
+  font-size: 0.9em;
+  margin-left: 0;
+  margin-bottom: 0.2em;
+}
+
+.navlink-text {
+  margin-bottom: 0.3em;
+}
+
+.dropdown-item:hover {
   background-color: rgb(64, 64, 64);
 }
 
