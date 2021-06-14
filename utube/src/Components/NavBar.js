@@ -45,7 +45,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <Navbar className='UTube-navbar navbar-dark'>
+      <Navbar fixed='top' className='UTube-navbar navbar-dark'>
         <div className='navbarBrand'>
           <NavbarToggler onClick={toggleNavbar} className='menuButton'/>
           <NavbarBrand href='/' className='ml-auto'>
@@ -67,7 +67,7 @@ const NavBar = () => {
               value={filter.title}
               onChange={handleChange}
             />
-            <button className='video-title-search-button' color='primary'>
+            <button className='video-title-search-button'>
               <img 
                 className='video-title-search-button-icon' 
                 src={searchButtonIcon} 
@@ -82,46 +82,63 @@ const NavBar = () => {
         }
         <div className='collapse-menu-div'>
         <Collapse className='collapseMenu' isOpen={!collapsed} navbar>
-          
-          <div className='collapse-menu-brand-div'>
-            <button onClick={toggleNavbar} className='collapse-menu-hamburger-button'>
-              <img className='collapse-menu-hamburger-icon' src={sidebarMenuIcon} alt=''/>
-            </button>
-            <NavbarBrand href='/' className='UTube-icon-side-bar'>
-              <img className='UTubeLogo-sidebar' src={UTubeLogo} alt='UTube'/>UTube
-            </NavbarBrand>
-          </div>
-          
-          <Nav navbar> 
-            <NavItem>
-              <FontAwesomeIcon icon={faHome} className="font-awesome-menu-icon" /> 
-              <NavLink to='/'>Home</NavLink> 
-            </NavItem>
-            <NavItem>
-            <FontAwesomeIcon icon={faUser} className="font-awesome-menu-icon" /> 
-              <NavLink to='/subscriptions'>Subscriptions</NavLink>  
-            </NavItem>
-            <hr/>
-            <NavItem>
-            <FontAwesomeIcon icon={faBook} className="font-awesome-menu-icon" /> 
-              <NavLink to='library'>Library</NavLink>  
-            </NavItem>
-            <NavItem>
-            <FontAwesomeIcon icon={faHistory} className="font-awesome-menu-icon" /> 
-              <NavLink to='/history'>History</NavLink>  
-            </NavItem>
-            <hr/>
-            { !isLoggedIn &&
-            <div className='collapse-menue-sign-in-button-div'>
-              <p>Sign in to like videos, comment, and subscribe.</p>
-              <Button outline color='primary' className='sidebar-sign-in-button'>SIGN IN
-                <img className='default-avatar-icon' src={defaultAvatarImage} alt=''></img>
-              </Button> 
+          {/* <div className='collapse-menu-div'> */}
+            <div className='collapse-menu-brand-div'>
+              <button onClick={toggleNavbar} className='collapse-menu-hamburger-button'>
+                <img className='collapse-menu-hamburger-icon' src={sidebarMenuIcon} alt=''/>
+              </button>
+              <NavbarBrand href='/' className='UTube-icon-side-bar'>
+                <img className='UTubeLogo-sidebar' src={UTubeLogo} alt='UTube'/>UTube
+              </NavbarBrand>
             </div>
-            }
-          </Nav>
+            
+            <Nav navbar> 
+              <NavItem>
+                <div className='nav-link-div'>
+                  <FontAwesomeIcon icon={faHome} className="font-awesome-menu-icon" /> 
+                  <NavLink to='/'>
+                    <p className='navlink-text'>Home</p>
+                  </NavLink> 
+                </div>
+              </NavItem>
+              <NavItem>
+                <div className='nav-link-div'>
+                  <FontAwesomeIcon icon={faUser} className="font-awesome-menu-icon" /> 
+                    <NavLink to='/subscriptions'>
+                      <p className='navlink-text'>Subscriptions</p>
+                    </NavLink>  
+                </div>
+              </NavItem>
+              <hr/>
+              <NavItem>
+                <div className='nav-link-div'>
+                  <FontAwesomeIcon icon={faBook} className="font-awesome-menu-icon" /> 
+                    <NavLink to='library'>
+                      <p className='navlink-text'>Library</p>
+                    </NavLink>  
+                </div>
+              </NavItem>
+              <NavItem>
+                <div className='nav-link-div'>
+                  <FontAwesomeIcon icon={faHistory} className="font-awesome-menu-icon" /> 
+                    <NavLink to='/history'>
+                    <p className='navlink-text'>History</p>
+                    </NavLink>  
+                </div>
+              </NavItem>
+              <hr/>
+              { !isLoggedIn &&
+              <div className='collapse-menue-sign-in-button-div'>
+                <p>Sign in to like videos, comment, and subscribe.</p>
+                <Button outline color='primary' className='sidebar-sign-in-button'>SIGN IN
+                  <img className='default-avatar-icon' src={defaultAvatarImage} alt=''></img>
+                </Button> 
+              </div>
+              }
+            </Nav>
+          {/* </div> */}
         </Collapse>
-        </div> 
+        </div>
       </Navbar>
     </div>
   );
