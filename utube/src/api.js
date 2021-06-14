@@ -124,17 +124,64 @@ class UTubeApi {
       title,
       'get'
     );
-    
+
     return res.videos;
   }
 
 
   static async getVideo(id) {
     let res = await this.request(`videos/${id}` );
-    
     return res.video;
   }
 
+  static async setVideoLike(like) {
+    const { username, videoId } = like;
+    const data = {
+      username: username,
+      videoId: videoId
+    };
+ 
+    let res = await this.request(
+      'likes/', 
+      data,
+      'post'
+    );
+    console.log('-------========>>>', res.videoLike);
+    return res.videoLike;
+  }
+
+
+  static async setSubscription(sub) {
+    const { subscriberUsername, subscribedToUsername } = sub;
+    const data = {
+      subscriberUsername: subscriberUsername,
+      subscribedToUsername: subscribedToUsername
+    };
+ 
+    let res = await this.request(
+      'subscriptions/', 
+      data,
+      'post'
+    );
+    console.log('-------========>>>', res.sub);
+    return res.sub;
+  }
+
+  static async setVideoView(view) {
+    const { username, videoId } = view;
+    const data = {
+      username: username,
+      videoId: videoId
+    };
+ 
+    let res = await this.request(
+      'views/', 
+      data,
+      'post'
+    );
+    
+    return res.view;
+  }
 
 }
 
