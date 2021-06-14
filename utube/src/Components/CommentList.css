@@ -1,0 +1,37 @@
+.comment-list-div {
+  min-height: 10em;
+  /* background-color: rgb(32, 32, 32);   */
+}
+
+.comment-list-number-comments {
+  text-align: left;
+  font-size: 1.1em;
+  color: white;  
+  margin-top: 0.5em;
+}
+
+.comment-list-this-user-avatar {
+  width: 2.8em;
+  height: 2.8em;  
+  float: left;
+  margin-top: 0.2em;
+}
+
+.comment-list-comment-form-div {
+  padding-top: 0.4em;
+  padding-bottom: 0.2em;
+  height: 5em;  
+}
+
+.comment-input {
+  width: 49.5em;
+  float: right;
+  margin-top: 0.5em;
+  border-width: 0;
+  background-color: rgb(24, 24, 24);
+  color: white;  
+}
+
+.comment-form-button-div {
+  float: right;  
+}
