@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Button } from 'reactstrap';
 import CommentList from './CommentList';
+import VideoListSmall from './VideoListSmall';
 import './WatchVideo.css';
 
 const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
@@ -80,10 +81,7 @@ const WatchVideo = () => {
         <hr className='video-watch-bottom-hr'/>
         <CommentList comments={currentVideo.comments}/>
       </div>
-
-      <div className='video-watch-suggested-videos-div'>
-
-      </div>
+      <VideoListSmall  />            
     </div>
   );  
 }
