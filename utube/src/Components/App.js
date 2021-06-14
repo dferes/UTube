@@ -16,6 +16,9 @@ function App() {
   // const [ signupFormData, setSignupFormData ] = useState( {} );
   // const [ userFormData, setUserFormData ] = useState({});
   const [ videoCardClicked, setVideoCardClicked] = useState(null);
+  const [ newVideoLike, setNewVideoLike ] = useState({});
+  const [ newSubscription, setNewSubscription ] = useState({});
+  // const [ view, setNewView ] = useState({});
 
   // const [ userToken, setUserToken ] = useLocalStorage('userToken', '');
   const [ user, setUser ] = useLocalStorage('user',  {} );
@@ -23,6 +26,7 @@ function App() {
   const [ videoSearchList, setVideoSearchList ] = useLocalStorage('videoSearchList', []);
   const [ allVideoList, setAllVideoList ] = useLocalStorage('allVideoList', []);
   const [ currentVideo, setCurrentVideo ] = useLocalStorage('currentVideo', {});
+  const [ comment, setComment ] = useState({});
   // const [ errorMessage, setErrorMessage ] = useState({});
   // const [ showSuccessMessage, setShowSuccessMessage ] = useState(false);
 
@@ -39,11 +43,49 @@ function App() {
       setCurrentVideo( await UTubeApi.getVideo(videoCardClicked));
     }
 
+    const setVideoView = async (view) => {
+      await UTubeApi.setVideoView(view);
+    }
+
     if(videoCardClicked){
       setCurrentVideoToWatch( videoCardClicked );
       setVideoCardClicked(null);
+      setVideoView( { 
+        username: user.username,
+        videoId: videoCardClicked
+      });
     }
-  }, [setCurrentVideo, videoCardClicked, setVideoCardClicked]);
+  }, [setCurrentVideo, videoCardClicked, setVideoCardClicked, user]);
+
+
+  useEffect( () => {
+    const setNewLike = async () => {
+      console.log(`video with videoId: ${newVideoLike.id} was clicked!`);
+      setNewVideoLike( await UTubeApi.setVideoLike(newVideoLike)
+    )};
+
+    console.log('Need to make user login befor i can test this', newVideoLike);
+
+    if(newVideoLike.videoId){
+      setNewLike(newVideoLike);
+      setNewVideoLike({});
+    }
+  }, [setNewVideoLike, newVideoLike]);
+
+
+  useEffect( () => {
+    const setNewUserSubscription = async () => {
+      console.log(`video with subscribedToUsername: ${newSubscription.SubscribedToUsername} was clicked!`);
+      setNewSubscription( await UTubeApi.setSubscription(newSubscription)
+    )};
+
+    console.log('Need to make user login befor i can test this', newSubscription);
+
+    if(newSubscription.subscribedToUsername){
+      setNewUserSubscription(newSubscription);
+      setNewSubscription({});
+    }
+  }, [newSubscription, setNewSubscription]);
 
   /** Logs the user out if isLoggedIn changes to false */
   // useEffect( () => {
@@ -99,7 +141,12 @@ function App() {
     allVideoList: allVideoList,
     setAllVideoList: setAllVideoList,
     currentVideo: currentVideo,
-    setVideoCardClicked: setVideoCardClicked
+    setVideoCardClicked: setVideoCardClicked,
+    newVideoLike: newVideoLike, 
+    setNewVideoLike: setNewVideoLike,
+    newSubscription: newSubscription, 
+    setNewSubscription: setNewSubscription,
+    setComment: setComment
     // handleFormChange: handleFormChange,
     // handleFormSubmit: handleFormSubmit,
     // loginFormData: loginFormData,
