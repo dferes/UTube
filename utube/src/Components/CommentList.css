@@ -11,8 +11,8 @@
 }
 
 .comment-list-this-user-avatar {
-  width: 2.8em;
-  height: 2.8em;  
+  width: 2.7em;
+  height: 2.7em;  
   float: left;
   margin-top: 0.2em;
 }
@@ -33,5 +33,19 @@
 }
 
 .comment-form-button-div {
-  float: right;  
+  float: right;
+  margin-top: 0.4em;  
+}
+
+.comment-form-submit-button,
+.comment-form-cancel-button {
+  background-color: rgb(48, 48, 48);
+  color: grey;
+  border: 0;
+  width: 7em;
+  height: 2.5em;  
+}
+
+.comment-form-cancel-button {
+  margin-right: 0.1em;  
 }
