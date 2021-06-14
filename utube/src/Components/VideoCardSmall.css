@@ -1,0 +1,68 @@
+.video-card-small-div {  
+    background-color: rgb(24, 24, 24);
+    width: 22em;
+    height: 5.625em;
+    float: right;
+    margin-bottom: 0.6em;
+    margin-right: 1em; 
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+}
+  
+.video-card-small-div:hover {
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.375);
+}
+  
+.video-card-small-image-div {
+    width: 10em;
+    height: 5.625em;  
+}
+  
+.video-card-small-image { 
+    width: 10em;  
+    height: 5.625em;
+}
+  
+.video-card-small-body {
+    height: 5.625em;
+    width: 12em;
+    /* margin-left: 1em; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+  
+.video-card-small-title {
+    color: white;
+    margin-top: -0.1em;
+    margin-right: 0.1em;
+    margin-left: 0.3em;
+    align-self: flex-start;
+    font-size: 1em;
+}
+  
+.video-card-small-username {
+    color: rgb(171, 170, 170);
+    align-self: flex-start;
+    margin-left: 0.4em;
+    margin-top: 0.9em;
+    font-size: 0.9em;
+}
+ 
+.video-card-small-created-at {
+    color: rgb(171, 170, 170);
+    align-self: flex-start;
+    margin-left: 0.6em;
+    margin-top: -1.4em;
+    font-size: 0.7em;
+}
+
+.video-card-small-description {
+    color: rgb(171, 170, 170);
+    align-self: flex-start;
+    margin-left: 1.05em;
+    margin-top: 0;
+    font-size: 0.9em;
+}
