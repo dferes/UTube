@@ -2,33 +2,31 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
-// import UTubeApi from '../api';
 import NavBar from './NavBar';
 import FormContext from '../FormContext';
 import useLocalStorage from '../hooks/useLocalStorage';
-// import useInputFilter from '../hooks/useInputFilter';
 import './App.css';
 import UTubeApi from '../api';
 
 
 function App() {
-  // const [ loginFormData, setLoginFormData ] = useState({});
-  // const [ signupFormData, setSignupFormData ] = useState( {} );
-  // const [ userFormData, setUserFormData ] = useState({});
   const [ videoCardClicked, setVideoCardClicked] = useState(null);
   const [ newVideoLike, setNewVideoLike ] = useState({});
   const [ newSubscription, setNewSubscription ] = useState({});
-  // const [ view, setNewView ] = useState({});
 
-  // const [ userToken, setUserToken ] = useLocalStorage('userToken', '');
+  const [ userTokenAndUsername, setUserTokenAndUsername ] = 
+    useLocalStorage('userTokenAndUsername', {});
   const [ user, setUser ] = useLocalStorage('user',  {} );
-  const [ isLoggedIn, setIsLoggedIn ] = useLocalStorage('isLoggedIn', false);
+
   const [ videoSearchList, setVideoSearchList ] = useLocalStorage('videoSearchList', []);
   const [ allVideoList, setAllVideoList ] = useLocalStorage('allVideoList', []);
   const [ currentVideo, setCurrentVideo ] = useLocalStorage('currentVideo', {});
   const [ comment, setComment ] = useState({});
+  const [ unsubscribe, setUnsubscribe] = useState({});
+  // const [ unlike, setUnlike] = useState({});
   // const [ errorMessage, setErrorMessage ] = useState({});
   // const [ showSuccessMessage, setShowSuccessMessage ] = useState(false);
+  // const history = useHistory();
 
   useEffect( () => {
     const setHomePageVideos = async () => {
@@ -59,12 +57,9 @@ function App() {
 
 
   useEffect( () => {
-    const setNewLike = async () => {
-      console.log(`video with videoId: ${newVideoLike.id} was clicked!`);
-      setNewVideoLike( await UTubeApi.setVideoLike(newVideoLike)
-    )};
-
-    console.log('Need to make user login befor i can test this', newVideoLike);
+    const setNewLike = async (newVideoLike) => {
+      await UTubeApi.setVideoLike(newVideoLike)
+    };
 
     if(newVideoLike.videoId){
       setNewLike(newVideoLike);
@@ -73,13 +68,23 @@ function App() {
   }, [setNewVideoLike, newVideoLike]);
 
 
+  // useEffect( () => {
+  //   const unlikeVideo = async (unlike) => {
+  //     console.log(`videoUnlike: ${unlike}`);
+  //     await UTubeApi.unlike(unlike);
+  //   };
+
+  //   if(unlike.videoId){
+  //     unlikeVideo(newVideoLike);
+  //     setUnlike({});
+  //   }
+  // }, [setUnlike, unlike]);
+
+
   useEffect( () => {
     const setNewUserSubscription = async () => {
-      console.log(`video with subscribedToUsername: ${newSubscription.SubscribedToUsername} was clicked!`);
-      setNewSubscription( await UTubeApi.setSubscription(newSubscription)
-    )};
-
-    console.log('Need to make user login befor i can test this', newSubscription);
+      await UTubeApi.setSubscription(newSubscription)
+    };
 
     if(newSubscription.subscribedToUsername){
       setNewUserSubscription(newSubscription);
@@ -87,57 +92,46 @@ function App() {
     }
   }, [newSubscription, setNewSubscription]);
 
-  /** Logs the user out if isLoggedIn changes to false */
-  // useEffect( () => {
-  //   const logout = () => {
-  //     setUserToken('');
-  //     setUser({});
-  //     resetUserFormData();
-  //   };
+
+  // Logs the user in or out if userTokenAndUsername.token is set to '' */
+  useEffect( () => {
+    const logout = async () => {
+      await setUser({});
+    };
+    
+    const login = async (username) => {
+      await UTubeApi.setToken(userTokenAndUsername.token);
+      const user_ = await UTubeApi.getUser(username);
+      user_.token = userTokenAndUsername.token;
+
+      await setUser( user_ );
+    }
   
-  //   if (!isLoggedIn) logout();
-  // }, [isLoggedIn, setUserToken, setUser]);
+    if (!(userTokenAndUsername.token && userTokenAndUsername.username) ) logout();
+    else if (userTokenAndUsername.username){
+      login(userTokenAndUsername.username);
+    }
+  }, [setUser, setUserTokenAndUsername, userTokenAndUsername]);
 
 
-  // const resetUserFormData = () => {
-  //   setLoginFormData({});
-  //   setSignupFormData({});
-  //   setUserFormData({});
-  // };
-  
-  // const handleUserFormChange = (evt, login=false, signup=false) => {
-  //   const { name, value } = evt.target;
-  //   if (login) setLoginFormData( data => ({...data, [name]: value}) );
-  //   else if(signup)setSignupFormData( data => ({...data, [name]: value}) );
-  //   else setUserFormData( data => ({...data, [name]: value}) );
-  // };
-
-  // const handleUserFormSubmit = async (evt, apiMethod, formInfo) => {
-  //   evt.preventDefault();
-  //   try {
-  //     if(['logIn', 'signup'].includes(apiMethod)){ // can be logIn, signup or update
-  //       const token = await UTubeApi[ [apiMethod] ](formInfo);
-  //       setUserToken(token);
-  //     }else {
-  //       UTubeApi.setToken(userToken);
-  //       await UTubeApi[ [apiMethod] ](formInfo);
-  //     }
-  //     const user_ = await UTubeApi.getUser(formInfo.username);
-  //     setUser(user_);
-  //     resetUserFormData();
-  //     setErrorMessage({});
-  //     setShowSuccessMessage(apiMethod==='update'? true: false);
-  //     setIsLoggedIn(true);
-  //   }catch(err) { setErrorMessage({ [apiMethod]: err }); }
-  // };
+  useEffect( () => {
+    const unsubscribeUser = async (unsubscribe) => {
+      console.log('----------- in here:', unsubscribe);
+      await UTubeApi.unsubscribe(unsubscribe);
+    } 
+    if(unsubscribe.subscribedToUsername) {
+      unsubscribeUser(unsubscribe);
+      setUnsubscribe({});
+    }
+    else console.log('didnt catch it: ', unsubscribe);
+  }, [unsubscribe, setUnsubscribe]);
 
   const formFunctions = {
     user: user,
     setUser: setUser,
+    userTokenAndUsername: userTokenAndUsername,
     videoSearchList: videoSearchList,
     setVideoSearchList: setVideoSearchList,
-    isLoggedIn: isLoggedIn,
-    setIsLoggedIn: setIsLoggedIn,
     allVideoList: allVideoList,
     setAllVideoList: setAllVideoList,
     currentVideo: currentVideo,
@@ -146,12 +140,9 @@ function App() {
     setNewVideoLike: setNewVideoLike,
     newSubscription: newSubscription, 
     setNewSubscription: setNewSubscription,
-    setComment: setComment
-    // handleFormChange: handleFormChange,
-    // handleFormSubmit: handleFormSubmit,
-    // loginFormData: loginFormData,
-    // signupFormData: signupFormData,
-    // userFormData: userFormData
+    setComment: setComment,
+    setUserTokenAndUsername: setUserTokenAndUsername,
+    setUnsubscribe: setUnsubscribe
   };
   
 

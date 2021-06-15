@@ -119,6 +119,37 @@
   margin-bottom: 0.15em;
 }
 
+.navbar-user-dropdown-button {
+  margin-right: 10.8em;
+  margin-top: -0.1em;
+  width: 2.2em;
+  height: 2.4em;
+}
+
+.navbar-user-avatar {
+  width: 2.4em;
+  height: 2.4em;
+  margin-bottom: 0.2em;
+  padding-bottom: 0.1em;
+  margin-left: -0.65em;
+}
+
+.user-navlink-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.font-awesome-user-menu-icon {
+  font-size: 1.1em;
+  color: rgb(155, 155, 155);
+  margin-right: 0.8em;
+  margin-top: 0.55em;
+}
+
+.user-navlink-text {
+  padding-top: 0.1em;
+}
 
 .nav-item {
   padding-bottom: 0.5em;
@@ -138,7 +169,7 @@
 }
 
 .dropdown-item:hover {
-  background-color: rgb(64, 64, 64);
+  background-color: rgb(64, 64, 64) !important;
 }
 
 .nav-item p {

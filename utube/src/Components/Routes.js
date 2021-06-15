@@ -17,7 +17,7 @@ const Routes = ( props ) => {
       <Route exact path='/'>
         <Home />
       </Route>
-      <Route exact path='/profile'>
+      <Route exact path='/profile/:username'>
         <Profile />
       </Route>
       <Route exact path='/search'>

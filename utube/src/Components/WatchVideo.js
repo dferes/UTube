@@ -12,12 +12,53 @@ const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thu
 
 
 const WatchVideo = () => {
-  const { currentVideo, user, setNewVideoLike, setNewSubscription } = useContext(UserContext);
+  const { currentVideo, user, setNewVideoLike, setNewSubscription, setUnsubscribe } = useContext(UserContext);
   const thumbnailImage = currentVideo.thumbnailImage 
     ? currentVideo.thumbnailImage
     : defaultVideoThumbnail; 
 
   const videoCreatorAvatar = currentVideo.userAvatar ? currentVideo.userAvatar : defaultAvatarImage;  
+
+  const subscribeClick = async () => {
+    console.log('in subscribeClick');
+    await setNewSubscription( {
+      subscriberUsername: user.username, 
+      subscribedToUsername: currentVideo.username 
+    });
+  };
+
+  const unsubscribeClick = async () => {
+    await setUnsubscribe( {
+      subscriberUsername: user.username, 
+      subscribedToUsername: currentVideo.username 
+    });
+  };
+
+  const likeClick = async () => {
+    console.log('in likeClick');
+    await setNewVideoLike( {
+      videoId: currentVideo.id, 
+      username: user.username 
+    });
+  };
+
+  // const unLikeClick = async () => {
+  //   console.log('in unLikeClick');
+  //   await unlikeVideo( {
+  //     videoId: currentVideo.id, 
+  //     username: user.username
+  //   });
+  // };
+
+  let subscribeButtonMessage = 'SUBSCRIBE';
+  let subscribeButtonFunction = subscribeClick;
+  // let likeButtonFunction = likeClick;
+
+  if (user.subscriptions.includes(currentVideo.username)) {
+    subscribeButtonMessage = 'UNSUBSCRIBE';
+    subscribeButtonFunction = unsubscribeClick;
+  }
+
 
   return (
     <div className='video-watch-main-div'>
@@ -64,14 +105,8 @@ const WatchVideo = () => {
               <Button 
                 color='danger' 
                 className='video-watch-subscribe-button'
-                onClick={ async () => {
-                  await setNewSubscription( {
-                    subscriberUsername: user.username, 
-                    subscribedToUsername: currentVideo.username 
-                  });
-                  console.log('Clicked Subscription button');
-                }}  
-                >SUBSCRIBE</Button>
+                onClick={ async () => await subscribeButtonFunction() }  
+                >{ subscribeButtonMessage }</Button>
             </div>
           </div>
           <div className='video-watch-description-text-div'>

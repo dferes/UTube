@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { Navbar, NavbarBrand, Button, UncontrolledDropdown, 
-  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+  DropdownToggle, DropdownMenu, DropdownItem, ButtonDropdown } from 'reactstrap';
 import useInputFilter from '../hooks/useInputFilter';
 import './NavBar.css';
 import UserContext from '../FormContext';
@@ -11,6 +11,8 @@ import {
   faUser,
   faBook,
   faHistory,
+  faIdCard,
+  faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 const UTubeLogo = process.env.PUBLIC_URL + 'images/UTube_Button2.png';
@@ -20,10 +22,15 @@ const sidebarMenuIcon = process.env.PUBLIC_URL + 'images/hamburger_icon5.png';
 
 
 const NavBar = () => {
-  // const { user, videoSearchList, setVideoSearchList, isLoggedIn } = useContext(UserContext);
-  const { videoSearchList, setVideoSearchList, isLoggedIn } = useContext(UserContext);
+  const { videoSearchList, setVideoSearchList, user, setUserTokenAndUsername } = useContext(UserContext);
+  const userAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
+  // const [dropdownOpenLeft, setOpenLeft] = useState(false);  
+  const [dropdownOpen, setOpen] = useState(false);  
   const [ formSubmit, setFormSubmit ] = useState(false);
   const history = useHistory();
+
+  const toggle = () => setOpen(!dropdownOpen);
+  // const toggleLeft = () => setOpenLeft(!dropdownOpenLeft);
 
   const [  
     filter, 
@@ -44,6 +51,7 @@ const NavBar = () => {
 
   return (
     <Navbar fixed='top' className='UTube-navbar navbar-dark'>
+      {/* <ButtonDropdown isOpen={dropdownOpenLeft} toggle={toggleLeft} nav inNavbar> */}
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle 
           className='navbar-dropdown-menu-toggle-button' nav
@@ -56,11 +64,13 @@ const NavBar = () => {
           }}  
         />
         <img className='collapse-menu-hamburger-icon-collapse' src={sidebarMenuIcon} alt=''/>
-        <DropdownMenu className='navbar-dropdown-menu' left
+        <DropdownMenu className='navbar-dropdown-menu' 
           style={{
             backgroundColor: 'rgb(32, 32, 32)',
             marginLeft: '0',
-            borderWidth: '0'
+            borderWidth: '0',
+            marginTop: '0.3em'
+
           }}
         >
           <DropdownItem>
@@ -98,10 +108,10 @@ const NavBar = () => {
           </DropdownItem>
           <DropdownItem divider style={{backgroundColor: 'rgb(64, 64, 64)'}} />
 
-          { !isLoggedIn &&
+          { !user.token &&
             <div className='collapse-menu-sign-in-button-div'>
               <p>Sign in to like videos, comment, and subscribe.</p>
-              <Button outline color='primary' className='sidebar-sign-in-button'>SIGN IN
+              <Button href='/login' outline color='primary' className='sidebar-sign-in-button'>SIGN IN
                 <img className='default-avatar-icon' src={defaultAvatarImage} alt=''></img>
               </Button> 
             </div>
@@ -109,8 +119,8 @@ const NavBar = () => {
         </DropdownMenu>
       </UncontrolledDropdown>
       <div style={{
-          marginLeft: '-14em',
-          marginBottom: '0.6em'
+          marginLeft: '-11em',
+          marginBottom: '0.9em'
       }}>
         <NavbarBrand href='/' >
           <img className='UTubeLogo' src={UTubeLogo} alt='UTube'/>UTube
@@ -139,10 +149,55 @@ const NavBar = () => {
           </button>    
         </form>
       </div>
-      { !isLoggedIn &&
-        <Button outline color='primary' className='navbar-sign-in-button'>SIGN IN
+      { !user.token &&
+        <Button href='/login' outline color='primary' className='navbar-sign-in-button'>SIGN IN
         <img className='default-avatar-icon' src={defaultAvatarImage} alt='' />
         </Button> 
+      }
+      { user.token && 
+        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} className='navbar-user-dropdown-button' nav inNavbar>
+          <DropdownToggle 
+            className='navbar-user-dropdown-menu-toggle-button' nav
+            style={{
+              width: '3em',
+              height: '3em',
+              borderRadius: '1.5em',
+              marginTop: '-0.6em',
+              marginBottom: '0.1em',
+              marginLeft: '8em'
+            }} 
+          >
+            <img className='navbar-user-avatar' src={userAvatar} alt=''/>  
+          </DropdownToggle>  
+          <DropdownMenu className='navbar-user-dropdown-menu' 
+            style={{
+              backgroundColor: 'rgb(32, 32, 32)',
+              marginRight: '3em',
+              marginTop: '2.2em',
+              width: '13.2em',
+              borderWidth: '0'
+            }}
+          >
+            <DropdownItem divider style={{backgroundColor: 'rgb(64, 64, 64'}}/>  
+            <DropdownItem>
+              <NavLink to={`/profile/:${user.username}`}  >
+                <div className='user-navlink-div'>
+                  <FontAwesomeIcon icon={faIdCard} className="font-awesome-user-menu-icon" /> 
+                    <p className='user-navlink-text'>Your Channel</p> 
+                </div>
+              </NavLink>
+            </DropdownItem>
+            <DropdownItem divider style={{backgroundColor: 'rgb(64, 64, 64'}}/>    
+            <DropdownItem onClick={ async () => await setUserTokenAndUsername({})}>
+              <NavLink to='/' >
+                <div className='user-navlink-div'>
+                  <FontAwesomeIcon icon={faSignOutAlt} className="font-awesome-user-menu-icon" /> 
+                    <p className='user-navlink-text'>Logout</p> 
+                </div>
+              </NavLink>
+            </DropdownItem>    
+          </DropdownMenu>
+        </ButtonDropdown>
       }
     </Navbar>
   );

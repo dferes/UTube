@@ -42,6 +42,7 @@
 .video-watch-bottom-hr {
   width: 53em;
   margin-top: 0.6em;
+  color: gray;
 }
 
 .video-player-title {
@@ -164,7 +165,8 @@
 
 .video-watch-subscribe-button {
   margin-top: 0.8em;
-  width: 7em;
+  width: 8.5em;
+  margin-left: -0.4em;
 }
 
 .video-watch-description-text-div {

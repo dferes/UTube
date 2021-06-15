@@ -1,18 +1,22 @@
 import { useContext } from 'react';
 import Comment from './Comment';
-import useInputFilter from '../hooks/useInputFilter';
+import useFormHandler from '../hooks/useFormHandler';
 import UserContext from '../FormContext';
 import './CommentList.css';
 const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
 
 
 const CommentList = ({ comments }) => {
-  const { user } = useContext(UserContext);  
+  const { user, currentVideo, setComment } = useContext(UserContext);  
   const [  
-    filter, 
+    data, 
     handleChange, 
     handleSubmit
-  ] = useInputFilter({ apiMethod: 'addComment', globalUpdateFunction: 'setComment'} );
+  ] = useFormHandler({ 
+      apiMethod: 'setVideoComment', 
+      globalUpdateFunction: setComment,
+      starterData: {username: user.username, videoId: currentVideo.id}    
+    });
   
   const thisUserAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
 
@@ -23,22 +27,19 @@ const CommentList = ({ comments }) => {
         <img  src={thisUserAvatar} alt='' className='comment-list-this-user-avatar' />  
         <form 
           className='comment-list-comment-form'
-          onSubmit={ async (evt) => {
-            await handleSubmit(evt);
-            console.log('-0000000000000000000000000000--------->>>');
-          }} 
+          onSubmit={ async (evt) => await handleSubmit(evt)} 
         >
           <label htmlFor='comment-input' />
           <input 
             className='comment-input'
             id='comment-input'
-            name='comment-input'
+            name='content'
             placeholder='Add a public comment...'
-            value={filter.comment}
+            value={data.content}
             onChange={handleChange}
           />
           <div className='comment-form-button-div'>
-            <button className='comment-form-cancel-button'>CANCEL</button>
+            {/* <button className='comment-form-cancel-button'>CANCEL</button> */}
             <button className='comment-form-submit-button'>COMMENT</button>
           </div>
         </form>  

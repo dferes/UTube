@@ -1,0 +1,70 @@
+.login-form-div {
+  width: 100vw;
+  text-align: center;
+}
+
+.login-form {
+  display: inline-block;
+  width: 50vw;
+  min-width: 19em;  
+  max-width: 30em;
+  padding: 2.5em;
+  margin-top: 5em;
+  margin-bottom: 1em;
+  background-color: rgb(32, 32, 32);
+  padding-bottom: 3.5em;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+  
+.login-form input {
+  background-color: rgb(24, 24, 24);
+  color: white;  
+}
+  
+/* .login-form input:hover {
+
+} */
+  
+.login-form label {
+  color: white;
+  float: left;
+  margin-top: 0.3em;
+}
+ 
+.login-message {
+  color: white;
+  margin-top: 1em;
+  margin-bottom: -1em;  
+}
+  
+.login-button {
+  float: right;
+  margin-top: 0.6em;
+}
+  
+.bad-login-div {
+  background-color: rgba(226, 31, 31, 0.3);
+  min-height: 2.5em;
+  border-radius: 0.7em;
+  margin-bottom: 0.5em;
+}
+ 
+.bad-login-message {
+  color: rgb(128, 55, 55);
+  text-align: center;
+  padding: 0.5em;
+}
+
+.signup-div {
+  display:inline;  
+  text-align: center;  
+
+  width: 50vw;
+  min-width: 19em;  
+  max-width: 30em;
+}
+
+.signup-message {
+  color: white;
+  font-size: 1.2em;  
+}
