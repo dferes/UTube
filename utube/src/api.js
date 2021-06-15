@@ -36,7 +36,7 @@ class UTubeApi {
    * form data and, if valid, returns a token signed with jwt.
    * The payload is the username.
    * Note that the token is also updated in this class.*/ 
-  static async logIn(formData) {
+  static async login(formData) {
     const { username, password } = formData;
     const data = {
       username: username,
@@ -50,7 +50,7 @@ class UTubeApi {
     );
     
     this.setToken(res.token);
-    return res.token;
+    return res;
   }
 
    /** If all data passed in formData is valid, a new user is created
@@ -59,7 +59,7 @@ class UTubeApi {
     *  Note that the token is also updated in this class. */ 
   static async signup(formData){
     const { username, password, firstName, lastName, email } = formData;
-    const data = { // consider just passing the formData instead of recreating the entire object...
+    const data = {
       username: username,
       password: password,
       firstName: firstName,
@@ -68,13 +68,13 @@ class UTubeApi {
     };
 
     let res = await this.request(
-      'user/register',
+      'users/',
       data,
       'post'
     );
 
     this.setToken(res.token);  
-    return res.token;
+    return res;
   }
 
   /** Accepts the user information:
@@ -150,6 +150,22 @@ class UTubeApi {
     return res.videoLike;
   }
 
+  static async unlike(unlikeData) {
+    const { username, videoId } = unlikeData;
+    const data = {
+      username: username,
+      videoId: videoId
+    };
+ 
+    let res = await this.request(
+      'likes/', 
+      data,
+      'delete'
+    );
+    console.log('-------========>>>', res.videoLike);
+    return res.videoLike;
+  }
+
 
   static async setSubscription(sub) {
     const { subscriberUsername, subscribedToUsername } = sub;
@@ -167,6 +183,22 @@ class UTubeApi {
     return res.sub;
   }
 
+  static async unsubscribe(sub) {
+    const { subscriberUsername, subscribedToUsername } = sub;
+    const data = {
+      subscriberUsername: subscriberUsername,
+      subscribedToUsername: subscribedToUsername
+    };
+ 
+    let res = await this.request(
+      'subscriptions/', 
+      data,
+      'delete'
+    );
+    console.log('-------========>>>', res.sub);
+    return res.sub;
+  }
+
   static async setVideoView(view) {
     const { username, videoId } = view;
     const data = {
@@ -176,6 +208,24 @@ class UTubeApi {
  
     let res = await this.request(
       'views/', 
+      data,
+      'post'
+    );
+    
+    return res.view;
+  }
+
+  static async setVideoComment(comment) {
+    const { username, videoId, content } = comment;
+    const data = {
+      username: username,
+      videoId: videoId,
+      content: content
+    };
+    console.log('1111111111111111111000--->>', data);
+ 
+    let res = await this.request(
+      'comments/', 
       data,
       'post'
     );
