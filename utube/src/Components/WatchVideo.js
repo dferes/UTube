@@ -12,7 +12,8 @@ const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thu
 
 
 const WatchVideo = () => {
-  const { currentVideo, user, setNewVideoLike, setNewSubscription, setUnsubscribe } = useContext(UserContext);
+  const { currentVideo, user, setNewVideoLike, setNewSubscription, 
+    setUnsubscribe, setNewVideoUnlike } = useContext(UserContext);
   const thumbnailImage = currentVideo.thumbnailImage 
     ? currentVideo.thumbnailImage
     : defaultVideoThumbnail; 
@@ -42,17 +43,24 @@ const WatchVideo = () => {
     });
   };
 
-  // const unLikeClick = async () => {
-  //   console.log('in unLikeClick');
-  //   await unlikeVideo( {
-  //     videoId: currentVideo.id, 
-  //     username: user.username
-  //   });
-  // };
+  const unlikeClick = async () => {
+    console.log('in unlikeClick');
+    await setNewVideoUnlike( {
+      videoId: currentVideo.id, 
+      username: user.username 
+    });
+  };
+
 
   let subscribeButtonMessage = 'SUBSCRIBE';
   let subscribeButtonFunction = subscribeClick;
-  // let likeButtonFunction = likeClick;
+  let likeButtonColor = 'gray';
+  let likeButtonFunction = likeClick;
+  
+  if (user.likes.includes(currentVideo.id)) {
+    likeButtonFunction = unlikeClick;
+    likeButtonColor = 'white';
+  }
 
   if (user.subscriptions.includes(currentVideo.username)) {
     subscribeButtonMessage = 'UNSUBSCRIBE';
@@ -79,11 +87,9 @@ const WatchVideo = () => {
               <FontAwesomeIcon 
                 icon={faThumbsUp} 
                 className="font-awesome-thumbs-up-icon"
+                style={{color: {likeButtonColor}}}
                 onClick={ async () => {
-                  await setNewVideoLike( {
-                    username: user.username, 
-                    videoId: currentVideo.id
-                  });
+                  await likeButtonFunction();
                   console.log('meh clicked');
                 }}   
               />
