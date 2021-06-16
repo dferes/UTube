@@ -12,6 +12,7 @@ import UTubeApi from '../api';
 function App() {
   const [ videoCardClicked, setVideoCardClicked] = useState(null);
   const [ newVideoLike, setNewVideoLike ] = useState({});
+  const [ newVideoUnlike, setNewVideoUnlike ] = useState({});
   const [ newSubscription, setNewSubscription ] = useState({});
 
   const [ userTokenAndUsername, setUserTokenAndUsername ] = 
@@ -23,7 +24,7 @@ function App() {
   const [ currentVideo, setCurrentVideo ] = useLocalStorage('currentVideo', {});
   const [ comment, setComment ] = useState({});
   const [ unsubscribe, setUnsubscribe] = useState({});
-  // const [ unlike, setUnlike] = useState({});
+  const [ unlike, setUnlike] = useState({});
   // const [ errorMessage, setErrorMessage ] = useState({});
   // const [ showSuccessMessage, setShowSuccessMessage ] = useState(false);
   // const history = useHistory();
@@ -45,19 +46,23 @@ function App() {
       await UTubeApi.setVideoView(view);
     }
 
-    if(videoCardClicked){
+    if(videoCardClicked ){
       setCurrentVideoToWatch( videoCardClicked );
       setVideoCardClicked(null);
       setVideoView( { 
         username: user.username,
         videoId: videoCardClicked
       });
-    }
-  }, [setCurrentVideo, videoCardClicked, setVideoCardClicked, user]);
+    }else if (comment.content) { // if a new comment was added, must get list of new comments
+      setCurrentVideoToWatch( currentVideo.id );  
+      setComment({});
+    } 
+  }, [setCurrentVideo, currentVideo, videoCardClicked, setVideoCardClicked, user, comment, setComment]);
 
 
   useEffect( () => {
     const setNewLike = async (newVideoLike) => {
+      UTubeApi.setToken(userTokenAndUsername.token);
       await UTubeApi.setVideoLike(newVideoLike)
     };
 
@@ -65,24 +70,26 @@ function App() {
       setNewLike(newVideoLike);
       setNewVideoLike({});
     }
-  }, [setNewVideoLike, newVideoLike]);
+  }, [setNewVideoLike, newVideoLike, userTokenAndUsername]);
 
 
-  // useEffect( () => {
-  //   const unlikeVideo = async (unlike) => {
-  //     console.log(`videoUnlike: ${unlike}`);
-  //     await UTubeApi.unlike(unlike);
-  //   };
+  useEffect( () => {
+    const unlikeVideo = async (unlike) => {
+      UTubeApi.setToken(userTokenAndUsername.token);
+      console.log(`videoUnlike: ${unlike}`);
+      await UTubeApi.unlike(unlike);
+    };
 
-  //   if(unlike.videoId){
-  //     unlikeVideo(newVideoLike);
-  //     setUnlike({});
-  //   }
-  // }, [setUnlike, unlike]);
+    if(unlike.videoId){
+      unlikeVideo(unlike);
+      setUnlike({});
+    }
+  }, [setUnlike, unlike, userTokenAndUsername]);
 
 
   useEffect( () => {
     const setNewUserSubscription = async () => {
+      UTubeApi.setToken(userTokenAndUsername.token);
       await UTubeApi.setSubscription(newSubscription)
     };
 
@@ -90,7 +97,7 @@ function App() {
       setNewUserSubscription(newSubscription);
       setNewSubscription({});
     }
-  }, [newSubscription, setNewSubscription]);
+  }, [newSubscription, setNewSubscription, userTokenAndUsername]);
 
 
   // Logs the user in or out if userTokenAndUsername.token is set to '' */
@@ -117,6 +124,7 @@ function App() {
   useEffect( () => {
     const unsubscribeUser = async (unsubscribe) => {
       console.log('----------- in here:', unsubscribe);
+      UTubeApi.setToken(userTokenAndUsername.token);
       await UTubeApi.unsubscribe(unsubscribe);
     } 
     if(unsubscribe.subscribedToUsername) {
@@ -124,7 +132,7 @@ function App() {
       setUnsubscribe({});
     }
     else console.log('didnt catch it: ', unsubscribe);
-  }, [unsubscribe, setUnsubscribe]);
+  }, [unsubscribe, setUnsubscribe, userTokenAndUsername]);
 
   const formFunctions = {
     user: user,
@@ -140,9 +148,12 @@ function App() {
     setNewVideoLike: setNewVideoLike,
     newSubscription: newSubscription, 
     setNewSubscription: setNewSubscription,
+    comment: comment,
     setComment: setComment,
     setUserTokenAndUsername: setUserTokenAndUsername,
-    setUnsubscribe: setUnsubscribe
+    setUnsubscribe: setUnsubscribe,
+    newVideoUnlike: newVideoUnlike,
+    setNewVideoUnlike: setNewVideoUnlike
   };
   
 
