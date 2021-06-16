@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Comment from './Comment';
 import useFormHandler from '../hooks/useFormHandler';
 import UserContext from '../FormContext';
@@ -7,16 +7,24 @@ const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.
 
 
 const CommentList = ({ comments }) => {
-  const { user, currentVideo, setComment } = useContext(UserContext);  
-  const [  
-    data, 
-    handleChange, 
-    handleSubmit
-  ] = useFormHandler({ 
-      apiMethod: 'setVideoComment', 
-      globalUpdateFunction: setComment,
-      starterData: {username: user.username, videoId: currentVideo.id}    
+  const { user, currentVideo, setComment } = useContext(UserContext);
+  // const [ showNewComment, setShowNewComment ] = useState(false);  
+  
+  const [ data, handleChange, handleSubmit ] = useFormHandler({ 
+    apiMethod: 'setVideoComment', 
+    globalUpdateFunction: setComment
+  });
+
+  const handleCommentSubmit = async (evt) => {
+    await handleSubmit(evt, {
+      username: user.username, 
+      videoId: currentVideo.id
     });
+    console.log('form submitted');
+  }
+ 
+  // if( !data.username && comment !== '' ) setShowNewComment(true); 
+
   
   const thisUserAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
 
@@ -27,10 +35,11 @@ const CommentList = ({ comments }) => {
         <img  src={thisUserAvatar} alt='' className='comment-list-this-user-avatar' />  
         <form 
           className='comment-list-comment-form'
-          onSubmit={ async (evt) => await handleSubmit(evt)} 
+          onSubmit={ async (evt) => await handleCommentSubmit(evt)} 
         >
           <label htmlFor='comment-input' />
-          <input 
+          <input
+            required={true} 
             className='comment-input'
             id='comment-input'
             name='content'
@@ -44,6 +53,15 @@ const CommentList = ({ comments }) => {
           </div>
         </form>  
       </div>  
+      {/* {  showNewComment &&
+        <Comment 
+          key={comment.id}
+          id={comment.id}
+          createdAt={comment.createdAt}
+          username={comment.username}
+          content={comment.content}  
+        />
+      }  */}
       {
         comments.map( comment => (
           <Comment 
