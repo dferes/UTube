@@ -1,21 +1,23 @@
-import { useContext} from 'react';
+import { useContext, useEffect } from 'react';
 import UserContext from '../FormContext';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import useFormHandler from '../hooks/useFormHandler';
 import './Signup.css';
 
 
 const Signup = () => {
-  // const history = useHistory();
-  // const {user, signupFormData, handleFormChange, handleFormSubmit} = useContext(FormContext);
+  const history = useHistory();
   // if ( !errorMessage.signup && user.username ) history.push('/');
-  const { setUserTokenAndUsername } = useContext(UserContext);
+  const { user, setUserTokenAndUsername } = useContext(UserContext);
   const [ data, handleChange, handleSubmit ] = useFormHandler({ 
     apiMethod: 'signup', 
     globalUpdateFunction: setUserTokenAndUsername    
   });
 
+  useEffect( () => {
+    if(user.token) history.push('/');
+  }, [user, history]); 
 
   return (
     <div className='signup-form-div'>
