@@ -10,15 +10,21 @@ const useFormHandler = ({ apiMethod, globalUpdateFunction, starterData={} }) => 
     setData( data => ({...data, [name]: value}));
   };
     
-  const handleSubmit = async evt => {
+  const handleSubmit = async (evt, extraData=null) => {
     evt.preventDefault();
-    let res = await UTubeApi[ [apiMethod] ](data);
+    let objectParameter = data;
+    if(extraData) objectParameter = { ...objectParameter, ...extraData};
+    
+    let res = await UTubeApi[ [apiMethod] ](objectParameter);
     if(data.password) delete data.password;
-    res = {...res, ...data};
+    res = {...res, ...data};           // this may be unnecessary, double check
+
     await globalUpdateFunction( res );
+    setData({});
+    evt.target.reset();
   };
 
-  return [ data , handleChange, handleSubmit ];
+  return [ data, handleChange, handleSubmit ];
 };
 
 export default useFormHandler;
