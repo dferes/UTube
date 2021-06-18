@@ -23,7 +23,7 @@ const Routes = ( props ) => {
       <Route exact path='/search'>
         <VideoList />
       </Route>
-      <Route exact path='/watch'>
+      <Route exact path='/watch/:id'>
         <WatchVideo />
       </Route>
       <Route exact path='/subscriptions'>

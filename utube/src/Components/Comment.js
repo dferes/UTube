@@ -1,16 +1,15 @@
 import React from 'react';
 import './Comment.css';
-const defaultCommentUserAvatar = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
 
 
 const Comment = ({ id, createdAt, username, content, userAvatar=null }) => {
-    const commentUserAvatar = userAvatar? userAvatar: defaultCommentUserAvatar;
+
     return (
       <div className='comment-column-div'>
         <div className='comment-div-user-avatar-div'>
           <img 
             className='comment-div-user-avatar' 
-            src={commentUserAvatar}
+            src={userAvatar}
             alt=''
             />
         </div>

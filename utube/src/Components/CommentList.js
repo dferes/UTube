@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Comment from './Comment';
 import useFormHandler from '../hooks/useFormHandler';
 import UserContext from '../FormContext';
 import './CommentList.css';
-const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
+// const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
 
 
 const CommentList = ({ comments }) => {
-  const { user, currentVideo, setComment } = useContext(UserContext);
+  const { user, currentVideo, setComment, defaultAvatarImage } = useContext(UserContext);
   // const [ showNewComment, setShowNewComment ] = useState(false);  
   
   const [ data, handleChange, handleSubmit ] = useFormHandler({ 
@@ -20,13 +20,13 @@ const CommentList = ({ comments }) => {
       username: user.username, 
       videoId: currentVideo.id
     });
-    console.log('form submitted');
   }
  
-  // if( !data.username && comment !== '' ) setShowNewComment(true); 
 
   
-  const thisUserAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
+  const thisUserAvatar = user.avatarImage 
+    ? user.avatarImage
+    : defaultAvatarImage;
 
   return (
     <div className='comment-list-div'>
@@ -53,15 +53,6 @@ const CommentList = ({ comments }) => {
           </div>
         </form>  
       </div>  
-      {/* {  showNewComment &&
-        <Comment 
-          key={comment.id}
-          id={comment.id}
-          createdAt={comment.createdAt}
-          username={comment.username}
-          content={comment.content}  
-        />
-      }  */}
       {
         comments.map( comment => (
           <Comment 
@@ -69,7 +60,8 @@ const CommentList = ({ comments }) => {
             id={comment.id}
             createdAt={comment.createdAt}
             username={comment.username}
-            content={comment.content}  
+            content={comment.content}
+            userAvatar={comment.userAvatar? comment.userAvatar : defaultAvatarImage }  
           />
         ))  
       }  

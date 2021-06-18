@@ -1,79 +1,144 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import UserContext from '../FormContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Button } from 'reactstrap';
 import CommentList from './CommentList';
 import VideoListSmall from './VideoListSmall';
+import UTubeApi from '../api';
+import VideoPlayer from './VideoPlayer';
 import './WatchVideo.css';
-
-const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
-const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thumbnail2.jpg';
 
 
 const WatchVideo = () => {
-  const { currentVideo, user, setNewVideoLike, setNewSubscription, 
-    setUnsubscribe, setNewVideoUnlike } = useContext(UserContext);
-  const thumbnailImage = currentVideo.thumbnailImage 
-    ? currentVideo.thumbnailImage
-    : defaultVideoThumbnail; 
+  let { id } = useParams();
+  id = Number(id);
+  const { currentVideo, setCurrentVideo, user, defaultAvatarImage, 
+    defaultVideoThumbnail, userTokenAndUsername, setUser } = useContext(UserContext);
+    
+  const [ subscribeButtonMessage, setSubscribeButtonMessage ] = useState('SUBSCRIBE');
+  const [ likeButtonColor, setLikeButtonColor ] = useState('gray');
+  const [ likeButtonFunction, setLikeButtonFunction ] = useState(null);
+  const [ subscribeButtonFunction, setSubscribeButtonFunction ] = useState(null);
 
-  const videoCreatorAvatar = currentVideo.userAvatar ? currentVideo.userAvatar : defaultAvatarImage;  
+  // const thumbnailImage = currentVideo.thumbnailImage 
+  //   ? currentVideo.thumbnailImage
+  //   : defaultVideoThumbnail; 
 
-  const subscribeClick = async () => {
-    console.log('in subscribeClick');
-    await setNewSubscription( {
-      subscriberUsername: user.username, 
-      subscribedToUsername: currentVideo.username 
-    });
-  };
+  const videoCreatorAvatar = currentVideo.userAvatar 
+    ? currentVideo.userAvatar 
+    : defaultAvatarImage;
 
-  const unsubscribeClick = async () => {
-    await setUnsubscribe( {
-      subscriberUsername: user.username, 
-      subscribedToUsername: currentVideo.username 
-    });
-  };
-
-  const likeClick = async () => {
-    console.log('in likeClick');
-    await setNewVideoLike( {
-      videoId: currentVideo.id, 
-      username: user.username 
-    });
-  };
-
-  const unlikeClick = async () => {
-    console.log('in unlikeClick');
-    await setNewVideoUnlike( {
-      videoId: currentVideo.id, 
-      username: user.username 
-    });
-  };
-
-
-  let subscribeButtonMessage = 'SUBSCRIBE';
-  let subscribeButtonFunction = subscribeClick;
-  let likeButtonColor = 'gray';
-  let likeButtonFunction = likeClick;
+  const getUser = useCallback(async () => {
+    if(userTokenAndUsername.token){
+      // console.log('my info: ', user);
+      await UTubeApi.setToken(userTokenAndUsername.token);
+      const user_ = await UTubeApi.getUser(userTokenAndUsername.username);
+      user_.token = userTokenAndUsername.token;
   
-  if (user.likes.includes(currentVideo.id)) {
-    likeButtonFunction = unlikeClick;
-    likeButtonColor = 'white';
-  }
+      setUser( user_ );
+    }
 
-  if (user.subscriptions.includes(currentVideo.username)) {
-    subscribeButtonMessage = 'UNSUBSCRIBE';
-    subscribeButtonFunction = unsubscribeClick;
-  }
+  }, [userTokenAndUsername, setUser]);  
 
+  const setVideo = useCallback( async () => {
+    // console.log('in setCurrentVideoToWatch -- videoId: ', id)
+    setCurrentVideo( await UTubeApi.getVideo(id));
+    
+    getUser();   
+  }, [setCurrentVideo, id, getUser]);
+
+
+
+  useEffect( () => {
+    const setVideoView = async (view) => {
+      await UTubeApi.setVideoView(view);
+    }
+      setVideo();
+     
+      setVideoView( { 
+        username: userTokenAndUsername.username,
+        videoId: id
+      });
+
+  }, [id, userTokenAndUsername, setVideo]);
+
+
+  useEffect( () => {
+    const subscribeClick = async () => {
+      // console.log('in subscribeClick');
+      await UTubeApi.setSubscription( {
+        subscriberUsername: userTokenAndUsername.username, 
+        subscribedToUsername: currentVideo.username 
+      });
+      // getUser();
+      setVideo();
+    };
+
+    const unsubscribeClick = async () => {
+      await UTubeApi.unsubscribe( {
+        subscriberUsername: userTokenAndUsername.username, 
+        subscribedToUsername: currentVideo.username 
+      });
+      // getUser();
+      setVideo();
+    };
+
+    const likeClick = async () => {
+      // console.log('in likeClick: currentVideo.id: ', currentVideo.id, 'username: ',userTokenAndUsername.username );
+      await UTubeApi.setVideoLike( {
+        videoId: currentVideo.id, 
+        username: userTokenAndUsername.username 
+      });
+      // getUser();
+      setVideo();
+    };
+
+    const unlikeClick = async () => {
+      // console.log('in unlikeClick');
+      await UTubeApi.unlike( {
+        videoId: currentVideo.id, 
+        username: userTokenAndUsername.username 
+      });
+      // getUser();
+      setVideo();
+    };
+
+    
+    if( userTokenAndUsername.token ) {
+      // console.log('I HAVE A TOKEN!!');
+
+      if (user.likes.includes(currentVideo.id)) {
+        // console.log('I like the video');
+        setLikeButtonFunction( () => unlikeClick);
+        setLikeButtonColor('white');
+      }else {
+        setLikeButtonColor('gray');
+        setLikeButtonFunction( () => likeClick);
+      }
+
+      if (user.subscriptions.includes(currentVideo.username)) {
+        // console.log('I am subscribed to this user');
+        setSubscribeButtonMessage('UNSUBSCRIBE');
+        setSubscribeButtonFunction( () => unsubscribeClick);
+      } else {
+        setSubscribeButtonMessage('SUBSCRIBE');
+        setSubscribeButtonFunction( () => subscribeClick);
+      }
+    }
+
+    },[ user.likes, user.subscriptions, currentVideo, id, userTokenAndUsername, setVideo ]
+  );
+
+  // console.log('USER INFO: ', user);
 
   return (
     <div className='video-watch-main-div'>
       <div className='video-watch-left-div-container'>
         <div className='video-player-div'>
-          <img className='video-player-thumbnail' src={thumbnailImage} alt='' />
-          {/* <p className='video-player-video-url'>{currentVideo.url}</p> */}
+          {/* <img className='video-player-thumbnail' src={thumbnailImage} alt='' /> */}
+          <VideoPlayer video={currentVideo} />
         </div>
         <div className='video-player-video-details'>
           <p className='video-player-title'>{currentVideo.title}</p>
@@ -87,10 +152,9 @@ const WatchVideo = () => {
               <FontAwesomeIcon 
                 icon={faThumbsUp} 
                 className="font-awesome-thumbs-up-icon"
-                style={{color: {likeButtonColor}}}
+                style={{color: likeButtonColor}}
                 onClick={ async () => {
                   await likeButtonFunction();
-                  console.log('meh clicked');
                 }}   
               />
               <p className='video-player-video-likes'>{currentVideo.likes.length}</p>
@@ -121,7 +185,7 @@ const WatchVideo = () => {
         </div>
         <hr className='video-watch-bottom-hr'/>
         <CommentList comments={currentVideo.comments}/>
-      </div>
+      </div>      
       <VideoListSmall  />            
     </div>
   );  
