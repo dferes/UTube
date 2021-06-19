@@ -1,0 +1,66 @@
+.upload-form-div {
+  width: 100vw;
+  text-align: center;
+  margin-top: 2.5em;
+}
+
+
+.upload-form {
+  display: inline-block;
+  min-height: 15em;
+  width: 50vw;
+  min-width: 19em;  
+  max-width: 32em;
+  padding: 2.5em;
+  margin-top: 1.5em;
+  background-color: rgb(32, 32, 32);
+  padding-bottom: 3.5em;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+
+  margin-bottom: 4em;
+}
+
+
+.upload-form-label {
+  float: left;
+  margin-top: 0.4em;
+  color: white;    
+}
+
+.upload-form textarea,
+.upload-form input {
+  background-color: rgb(24, 24, 24);
+  color: white;  
+}
+
+.upload-form-button {
+  background: rgb(45, 101, 221);
+  width: 6em;
+  height: 2.5em;
+  border: 0;
+  border-radius: 0.15em;
+  color: white;
+  margin: auto;
+}
+
+
+.upload-form-button {
+  float: right;
+  margin-top: 1.5em;
+  margin-bottom: -1em;  
+}
+
+
+.bad-upload-div {
+  background-color: rgba(226, 31, 31, 0.3);
+  min-height: 2.5em;
+  border-radius: 0.7em;
+  margin-top: 1em;
+  margin-bottom: -1.2em;
+}
+        
+.bad-upload-message {
+  color: rgb(190, 157, 157);
+  text-align: center;
+  padding: 0.5em;
+}
