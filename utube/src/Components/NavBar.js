@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
   faUser,
-  faBook,
+  faThumbsUp,
   faHistory,
   faIdCard,
   faSignOutAlt
@@ -113,10 +113,10 @@ const NavBar = () => {
               </DropdownItem>
               <DropdownItem divider style={{backgroundColor: 'rgb(64, 64, 64)'}}/>
               <DropdownItem>
-                <NavLink to='library'>
+                <NavLink to='/liked-videos'>
                   <div className='nav-link-div'>
-                    <FontAwesomeIcon icon={faBook} className="font-awesome-menu-icon" /> 
-                      <p className='navlink-text'>Library</p>
+                    <FontAwesomeIcon icon={faThumbsUp} className="font-awesome-menu-icon" /> 
+                      <p className='navlink-text'>Liked Videos</p>
                   </div>
                 </NavLink>  
               </DropdownItem>
