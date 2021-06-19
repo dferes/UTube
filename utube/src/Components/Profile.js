@@ -8,7 +8,7 @@ import './Profile.css';
 
 const Profile = ({ about = false }) => {
   let { username } = useParams();
-  const [ otherUser, setOtherUser , videoReel] = useState({});
+  const [ otherUser, setOtherUser ] = useState({});
   const [ readyToRender, setReadyToRender ] = useState(false);
   const [ otherUserVideos, setOtherUserVideos] = useState({});
   
