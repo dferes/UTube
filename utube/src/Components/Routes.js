@@ -7,7 +7,7 @@ import Profile from './Profile';
 import WatchVideo from './WatchVideo';
 import VideoList from './VideoList';
 import SubscriptionList from './SubscriptionList.js';
-import LibraryList from './LibraryList';
+import LikeList from './LikeList';
 import HistoryList from './HistoryList';
 import EditProfile from './EditProfile';
 import VideoUpload from './VideoUpload';
@@ -40,8 +40,8 @@ const Routes = ( props ) => {
       <Route exact path='/subscriptions'>
         <SubscriptionList />
       </Route>
-      <Route exact path='/library'>
-        <LibraryList />
+      <Route exact path='/liked-videos'>
+        <LikeList />
       </Route>
       <Route exact path='/history'>
         <HistoryList />
