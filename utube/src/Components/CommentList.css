@@ -12,7 +12,8 @@
 
 .comment-list-this-user-avatar {
   width: 2.7em;
-  height: 2.7em;  
+  height: 2.7em;
+  border-radius: 1.35em;  
   float: left;
   margin-top: 0.2em;
 }
