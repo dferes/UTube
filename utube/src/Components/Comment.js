@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Comment.css';
 
 
@@ -7,11 +8,13 @@ const Comment = ({ id, createdAt, username, content, userAvatar=null }) => {
     return (
       <div className='comment-column-div'>
         <div className='comment-div-user-avatar-div'>
-          <img 
-            className='comment-div-user-avatar' 
-            src={userAvatar}
-            alt=''
+          <Link to={`/profile/${username}`}>
+            <img 
+              className='comment-div-user-avatar' 
+             src={userAvatar}
+              alt=''
             />
+          </Link>
         </div>
         <div className='comment-row-div'>
           <div className='comment-div-username-and-date-div'>

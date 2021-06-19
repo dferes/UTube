@@ -46,16 +46,17 @@
   margin-top: 1em;
   margin-bottom: -1em;
 }
-    
+
 .bad-signup-div {
   background-color: rgba(226, 31, 31, 0.3);
   min-height: 2.5em;
   border-radius: 0.7em;
-  margin-bottom: 0.5em;
+  margin-top: 1.2em;
+  margin-bottom: -0.5em;
 }
-    
+      
 .bad-signup-message {
-  color: rgb(128, 55, 55);
+  color: rgb(190, 157, 157);
   text-align: center;
   padding: 0.5em;
 }

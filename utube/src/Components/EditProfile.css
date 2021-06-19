@@ -1,0 +1,76 @@
+.edit-profile-main-div {
+  width: 100vw;
+  text-align: center;
+  margin-top: 2.5em;
+}
+
+.edit-profile-form {
+  display: inline-block;
+  width: 50vw;
+  min-width: 19em;  
+  max-width: 32em;
+  padding: 2.5em;
+  margin-top: 1.5em;
+  background-color: rgb(32, 32, 32);
+  padding-bottom: 3.5em;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+  margin-bottom: 4em; 
+}
+
+.update-firstName-label,
+.update-lastName-label,
+.update-avatar-label,
+.update-coverImage-label,
+.update-about-label,
+.update-form-password-label {
+  float: left;
+  margin-top: 0.4em;
+  color: white;  
+}
+
+.edit-username-display {
+  float: left;
+  color: white;
+  margin-right: -4em;
+}
+
+.edit-email-display {
+  float: left;
+  color: white;
+  margin-right: 2.3em;
+}
+
+.edit-email-value,
+.edit-username-value {
+  color: white;
+  margin-left: -1em;  
+}
+
+.edit-profile-form input {
+  background-color: rgb(24, 24, 24);
+  color: white;  
+ }
+
+.edit-profile-form textarea {
+  background-color: rgb(24, 24, 24);
+  color: white;  
+}
+
+ .edit-profile-button {
+   float: right;
+   margin-top: 1.5em;  
+ }
+
+.bad-update-div {
+  background-color: rgba(226, 31, 31, 0.3);
+  min-height: 2.5em;
+  border-radius: 0.7em;
+  margin-top: 1em;
+  margin-bottom: -1.2em;
+}
+      
+.bad-update-message {
+  color: rgb(190, 157, 157);
+  text-align: center;
+  padding: 0.5em;
+}

@@ -9,6 +9,8 @@ import VideoList from './VideoList';
 import SubscriptionList from './SubscriptionList.js';
 import LibraryList from './LibraryList';
 import HistoryList from './HistoryList';
+import EditProfile from './EditProfile';
+import VideoUpload from './VideoUpload';
 
 
 const Routes = ( props ) => {
@@ -16,6 +18,15 @@ const Routes = ( props ) => {
     <Switch>
       <Route exact path='/'>
         <Home />
+      </Route>
+      <Route exact path='/profile/:username/edit'>
+        <EditProfile />
+      </Route>
+      <Route exact path='/profile/:username/upload'>
+        <VideoUpload />
+      </Route>
+      <Route exact path='/profile/:username/about'>
+        <Profile about={true} />
       </Route>
       <Route exact path='/profile/:username'>
         <Profile />

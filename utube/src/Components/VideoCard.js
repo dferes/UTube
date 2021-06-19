@@ -1,10 +1,12 @@
+import { useContext } from 'react';
+import UserContext from '../FormContext';
 import { Link } from 'react-router-dom';
 import './VideoCard.css';
 
-const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thumbnail2.jpg';
-
+// const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thumbnail2.jpg';
 
 const VideoCard = ({ id, createdAt, title, username, url, description, thumbnail }) => {
+  const { defaultVideoThumbnail } = useContext(UserContext);
 
   return (
     <Link to={`/watch/${id}`}>

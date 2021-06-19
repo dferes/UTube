@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import UserContext from '../FormContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,7 @@ const WatchVideo = () => {
   let { id } = useParams();
   id = Number(id);
   const { currentVideo, setCurrentVideo, user, defaultAvatarImage, 
-    defaultVideoThumbnail, userTokenAndUsername, setUser } = useContext(UserContext);
+    userTokenAndUsername, setUser } = useContext(UserContext);
     
   const [ subscribeButtonMessage, setSubscribeButtonMessage ] = useState('SUBSCRIBE');
   const [ likeButtonColor, setLikeButtonColor ] = useState('gray');
@@ -167,7 +167,9 @@ const WatchVideo = () => {
           <div className='video-watch-description-col-div'>
             <div className='video-watch-video-description-col1-div'>
               <div className='video-watch-video-creator-card'>
-                <img className='video-watch-video-creator-avatar' src={videoCreatorAvatar} alt='' />
+                <Link to={`/profile/${currentVideo.username}`}>
+                  <img className='video-watch-video-creator-avatar' src={videoCreatorAvatar} alt='' />
+                </Link>
                 <p className='video-watch-video-creator-username'>{currentVideo.username}</p>
               </div>
             </div>

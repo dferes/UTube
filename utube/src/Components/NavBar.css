@@ -129,8 +129,10 @@
 .navbar-user-avatar {
   width: 2.4em;
   height: 2.4em;
-  margin-bottom: 0.2em;
-  padding-bottom: 0.1em;
+  border-radius: 1.2em;
+  margin-bottom: 0.1em;
+  margin-top: -0.2em;
+  padding-bottom: 0;
   margin-left: -0.65em;
 }
 

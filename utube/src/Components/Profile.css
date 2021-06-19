@@ -1,7 +1,201 @@
-.user-info-div {
-  text-align: center;  
+.user-profile-main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* background-color: blue; */
+  width: 100vw;
 }
 
-.user-info-div h2 {
-  color: white;  
+
+.user-profile-row1-header {
+  width: 100vw;
+  height: 13.5em;
+}
+
+.user-profile-row2-top-bar {
+  background-color: rgb(18, 18, 18);
+  /* height: 10em; */
+}
+
+.user-profile-top-bar-row-div {
+  display: flex;
+  flex-wrap: column;
+  justify-content: flex-start;
+  background-color: rgb(18, 18, 18);
+  height: 7em;
+}
+
+.user-profile-user-card {
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-end;
+
+  height: 7em;
+  margin-left: 10em;
+}
+
+.user-profile-user-avatar {
+  width: 5em;
+  height: 5em;
+  border-radius: 2.5em;
+  margin-top: 1.5em;
+}
+
+.user-profile-user-card-info-div {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+  margin-left: 2em;
+}
+
+.user-profile-username {
+  color: rgb(242, 242, 242);
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-top: 1.1em;
+}
+
+.user-profile-user-likes {
+  font-size: 1.1em;
+  color: gray;
+  margin-top: -1.2em;
+}
+
+.user-profile-top-bar-nav {
+  /* background-color: green; */
+  /* height: 3em; */
+  margin-left: 10em;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.user-profile-top-bar-nav-link-container {
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-end;
+}
+
+
+.user-profile-top-bar-nav-videos-active {
+  width: 9em;
+  height: 2.5em;
+  background-color: rgb(64, 64, 64);
+}
+
+.user-profile-top-bar-nav-about-active {
+  width: 9em;
+  height: 2.5em;
+  background-color: rgb(64, 64, 64);
+  margin-left: 1em;
+}
+
+.user-profile-top-bar-nav-videos {
+  width: 9em;
+  height: 2.5em;
+}
+
+.user-profile-top-bar-nav-edit-profile,
+.user-profile-top-bar-nav-upload-video,
+.user-profile-top-bar-nav-about {
+  width: 9em;
+  height: 2.5em;
+  margin-left: 1em;
+}
+
+.user-profile-top-bar-nav-edit-profile:hover,
+.user-profile-top-bar-nav-upload-video:hover,
+.user-profile-top-bar-nav-videos:hover,
+.user-profile-top-bar-nav-about:hover {
+  background-color: rgb(64, 64, 64);
+}
+
+
+.user-profile-nav-text {
+  color: rgb(171, 171, 171);
+  text-align: center;
+  padding-top: 0.6em;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+.user-profile-video-card-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: rgb(28, 28, 28);
+  margin-left: 10em;
+  padding-top: 1em;
+  margin-right: 3em;
+  margin-top: 2em;
+}
+
+.user-profile-video-list-empty-div {
+  height: 25em;
+  background-color: rgb(28, 28, 28);
+  margin-left: 10em; 
+  margin-top: 3em;
+  margin-right: 3em;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.user-profile-video-list-empty-message-card {
+  /* background-color: rgb(20, 20, 20); */
+  margin-top: 1em;
+  width: 50em;
+}
+
+.user-profile-video-list-empty-message-image {
+  width: 15em; 
+}
+
+.user-profile-video-list-empty-message {
+  text-align: center;
+  color: white;
+}
+
+.user-profile-about-div {
+  background-color: rgb(32, 32, 32);
+  margin-top: 3em;
+  margin-right: 3em;
+  margin-left: 10em;
+  margin-bottom: 10em;
+  padding-bottom: 5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.user-profile-about-details {
+  /* background-color: green; */
+  margin-top: 3em;
+  margin-left: 7em;
+}
+
+.user-profile-name {
+  color: white
+}
+.user-profile-num-videos {
+  color: white;
+  margin-top: 1em;
+}
+
+.user-profile-email {
+  color: white;
+  margin-top: 1em;
+}
+
+.user-profile-joined-date {
+  color: white;
+  margin-top: 1em;
+}
+
+.user-profile-about {
+  color: white;
+  margin-top: 1em;
+  margin-right: 10em;
 }

@@ -23,7 +23,7 @@ const VideoPlayer = ({ video }) => {
       <video
         controls
         ref={videoRef}
-        className="video-js vjs-fluid vjs-big-play-centered"
+        className="video-js vjs-16-9 vjs-big-play-centered"
       ></video>
     </div>
   );

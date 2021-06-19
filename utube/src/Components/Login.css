@@ -68,3 +68,17 @@
   color: white;
   font-size: 1.2em;  
 }
+
+.bad-login-div {
+  background-color: rgba(226, 31, 31, 0.3);
+  min-height: 2.5em;
+  border-radius: 0.7em;
+  margin-top: 1.2em;
+  margin-bottom: -0.5em;
+}
+      
+.bad-login-message {
+  color: rgb(190, 157, 157);
+  text-align: center;
+  padding: 0.5em;
+}

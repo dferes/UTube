@@ -11,7 +11,7 @@ const Login = () => {
   // const {user, handleFormSubmit, handleFormChange, loginFormData} = useContext(FormContext);
   // if(!errorMessage.logIn && user.username)  history.push('/');
   const { setUserTokenAndUsername, user } = useContext(UserContext);
-  const [ data, handleChange, handleSubmit ] = useFormHandler({ 
+  const [ data, handleChange, handleSubmit, errorMessage, successMessage ] = useFormHandler({ 
     apiMethod: 'login', 
     globalUpdateFunction: setUserTokenAndUsername    
   });
@@ -45,11 +45,11 @@ const Login = () => {
               onChange={handleChange}  
             />
         </FormGroup>
-        {/* { errorMessage.logIn && 
+        { errorMessage && 
           <div className='bad-login-div'>
-            <p className='bad-login-message'>{errorMessage.logIn}</p>
+            <p className='bad-login-message'>{errorMessage}</p>
           </div>      
-        } */}
+        }
         <Button color='primary' className='login-button'>Log In</Button>
       </Form>
       <div className='signup-div'>
