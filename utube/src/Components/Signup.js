@@ -8,9 +8,8 @@ import './Signup.css';
 
 const Signup = () => {
   const history = useHistory();
-  // if ( !errorMessage.signup && user.username ) history.push('/');
   const { user, setUserTokenAndUsername } = useContext(UserContext);
-  const [ data, handleChange, handleSubmit, errorMessage, successMessage ] = useFormHandler({ 
+  const [ data, handleChange, handleSubmit, errorMessage ] = useFormHandler({ 
     apiMethod: 'signup', 
     globalUpdateFunction: setUserTokenAndUsername    
   });

@@ -10,7 +10,7 @@ const CommentList = ({ comments }) => {
   const { user, currentVideo, setComment, defaultAvatarImage } = useContext(UserContext);
   // const [ showNewComment, setShowNewComment ] = useState(false);  
   
-  const [ data, handleChange, handleSubmit, errorMessage, successMessage ] = useFormHandler({ 
+  const [ data, handleChange, handleSubmit ] = useFormHandler({ 
     apiMethod: 'setVideoComment', 
     globalUpdateFunction: setComment
   });
