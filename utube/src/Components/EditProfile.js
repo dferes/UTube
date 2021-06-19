@@ -23,7 +23,7 @@ const EditProfile = () => {
       history.push(`/profile/${user.username}`);
     }
 
-  }, [successMessage, setSuccessMessage, user]);
+  }, [successMessage, setSuccessMessage, user, history]);
 
 
   return (
