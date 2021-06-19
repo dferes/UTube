@@ -128,6 +128,25 @@ class UTubeApi {
     return res.videos;
   }
 
+  static async makeVideo(video) {
+    console.log('inside API.makeVideo: ', video);
+    const { title, url, description, username } = video;
+    const data = {
+      title: title,
+      url: url,
+      description: description,
+      username: username,
+    };
+ 
+    let res = await this.request(
+      'videos/', 
+      data,
+      'post'
+    );
+    console.log('-------========>>>', res.video);
+    return res.video;
+  }
+
 
   static async getVideo(id) {
     let res = await this.request(`videos/${id}` );
