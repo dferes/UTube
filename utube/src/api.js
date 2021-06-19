@@ -222,7 +222,6 @@ class UTubeApi {
       videoId: videoId,
       content: content
     };
-    console.log('1111111111111111111000--->>', data);
  
     let res = await this.request(
       'comments/', 
