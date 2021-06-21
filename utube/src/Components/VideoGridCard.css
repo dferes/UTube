@@ -18,10 +18,12 @@
 .video-grid-card-image-div {
   width: 18.5em;
   height: 10.40625;  
+  background-color: black;
+  text-align: center;
 }
     
 .video-grid-card-image {
-  width: 18.5em;
+  max-width: 18.5em;
   height: 10.40625em;  
 }
 
