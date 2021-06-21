@@ -5,7 +5,6 @@ import './Home.css';
 
 
 const Home = () => {
-  // const { allVideoList, currentVideo, setCurrentVideo } = useContext(UserContext);
   const { allVideoList } = useContext(UserContext);
 
   return (
