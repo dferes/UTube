@@ -1,4 +1,3 @@
-// import React, { useState, useEffect } from 'react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
@@ -43,7 +42,6 @@ function App() {
 
   useEffect( () => {
     const setCurrentVideoToWatch = async (videoId) => {
-      console.log('in setCurrentVideoToWatch -- videoId: ', videoId)
       setCurrentVideo( await UTubeApi.getVideo(videoId));
     }
 
@@ -85,7 +83,6 @@ function App() {
     setAllVideoList: setAllVideoList,
     currentVideo: currentVideo,
     setCurrentVideo: setCurrentVideo,
-    // setVideoCardClicked: setVideoCardClicked,
     newVideoLike: newVideoLike, 
     setNewVideoLike: setNewVideoLike,
     newSubscription: newSubscription, 
@@ -97,11 +94,8 @@ function App() {
     defaultVideoThumbnail: defaultVideoThumbnail,
     defaultHeader: defaultHeader,
     videoReel: videoReel
-    // setUnsubscribe: setUnsubscribe
   };
   
-
-
 
   return (
     <div className="App">
