@@ -1,4 +1,3 @@
-// import React, { useEffect,  useContext } from 'react';
 import { useContext } from 'react';
 import FormContext from '../FormContext';
 import VideoCard from './VideoCard';
@@ -6,7 +5,6 @@ import './VideoList.css';
 const noResultImage = process.env.PUBLIC_URL + 'images/no_result_image.webp';
 
 const VideoList = ( ) => {
-//   const { user, videoSearchList } = useContext(FormContext);
 const { videoSearchList } = useContext(FormContext);
   const isEmpty = videoSearchList.length === 0;
   return (

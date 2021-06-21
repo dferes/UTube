@@ -7,7 +7,7 @@ import './VideoGridCard.css';
 
 const VideoGridCard = ({ id, createdAt, title, username, thumbnail }) => {  
   const { defaultVideoThumbnail } = useContext(UserContext);
-    
+  
   return (
     <Link to={`/watch/${id}`}>
       <div className='video-grid-card-div'>
