@@ -12,10 +12,6 @@ const VideoPlayer = ({ video }) => {
 
     vjsPlayer.poster(thumbnailImage);
     vjsPlayer.src(url);
-
-    vjsPlayer.on("ended", () => {
-      console.log('The video has ended');
-    });
   }, [id, thumbnailImage, url]);
 
   return (
