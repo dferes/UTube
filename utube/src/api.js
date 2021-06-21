@@ -129,13 +129,13 @@ class UTubeApi {
   }
 
   static async makeVideo(video) {
-    console.log('inside API.makeVideo: ', video);
-    const { title, url, description, username } = video;
+    const { title, url, description, username, thumbnailImage } = video;
     const data = {
       title: title,
       url: url,
       description: description,
       username: username,
+      thumbnailImage: thumbnailImage
     };
  
     let res = await this.request(
@@ -143,7 +143,7 @@ class UTubeApi {
       data,
       'post'
     );
-    console.log('-------========>>>', res.video);
+
     return res.video;
   }
 
@@ -165,7 +165,7 @@ class UTubeApi {
       data,
       'post'
     );
-    console.log('-------========>>>', res.videoLike);
+
     return res.videoLike;
   }
 
@@ -181,7 +181,7 @@ class UTubeApi {
       data,
       'delete'
     );
-    console.log('-------========>>>', res.videoLike);
+
     return res.videoLike;
   }
 
@@ -198,7 +198,7 @@ class UTubeApi {
       data,
       'post'
     );
-    console.log('-------========>>>', res.sub);
+
     return res.sub;
   }
 
@@ -214,7 +214,7 @@ class UTubeApi {
       data,
       'delete'
     );
-    console.log('-------========>>>', res.sub);
+
     return res.sub;
   }
 
