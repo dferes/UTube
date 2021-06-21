@@ -2,8 +2,8 @@ import { useState } from 'react';
 import UTubeApi from '../api';
 
 
-const useFormHandler = ({ apiMethod, globalUpdateFunction, starterData={}, successMessage_='' }) => {
-  const [ data, setData ] = useState( {...starterData} );
+const useFormHandler = ({ apiMethod, globalUpdateFunction, successMessage_='' }) => {
+  const [ data, setData ] = useState( {} );
   const [ errorMessage, setErrorMessage] = useState(false);
   const [ successMessage, setSuccessMessage] = useState(false);
     
@@ -17,10 +17,9 @@ const useFormHandler = ({ apiMethod, globalUpdateFunction, starterData={}, succe
     evt.preventDefault();
     try {
       let objectParameter = data;
-
       if(extraData) objectParameter = { ...objectParameter, ...extraData};
       let res = await UTubeApi[ [apiMethod] ](objectParameter);
-      res = {...res, ...data};           // this may be unnecessary, double check
+      res = {...res, ...data}; 
       
       if(data.password) delete data.password;
       await globalUpdateFunction( res );
