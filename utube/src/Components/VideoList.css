@@ -4,14 +4,13 @@
   height: 100vh;
 }
 
-
-
 .video-search-result-hr {
   width: 73vw;
   float: right;
   margin-right: 6em;
   margin-bottom: 1.5em;
   margin-top: -0.5em;
+  color: gray;
 }
 
 .no-results-div {

@@ -11,11 +11,10 @@
 }
 
 .collapse-menu-hamburger-icon-collapse {
-  width: 2em;
-  height: 2em;
-  margin-top: 1.65em;
-  margin-left: 1.85em;
-
+  width: 1.9em;
+  height: 1.9em;
+  margin-top: -0.5em;
+  margin-left: -0.6em;
 }
 
 .navbar-dropdown-menu {
