@@ -8,8 +8,6 @@ import './Login.css';
 
 const Login = () => {
   const history = useHistory();
-  // const {user, handleFormSubmit, handleFormChange, loginFormData} = useContext(FormContext);
-  // if(!errorMessage.logIn && user.username)  history.push('/');
   const { setUserTokenAndUsername, user } = useContext(UserContext);
   const [ data, handleChange, handleSubmit, errorMessage ] = useFormHandler({ 
     apiMethod: 'login', 
