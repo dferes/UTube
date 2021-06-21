@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { Navbar, NavbarBrand, Button, UncontrolledDropdown, 
-  DropdownToggle, DropdownMenu, DropdownItem, ButtonDropdown } from 'reactstrap';
+import { Navbar, NavbarBrand, Button, DropdownToggle, DropdownMenu, 
+  DropdownItem, ButtonDropdown } from 'reactstrap';
 import useInputFilter from '../hooks/useInputFilter';
 import './NavBar.css';
 import UserContext from '../FormContext';
@@ -23,24 +23,23 @@ const sidebarMenuIcon = process.env.PUBLIC_URL + 'images/hamburger_icon5.png';
 
 
 const NavBar = () => {
-  const { videoSearchList, setVideoSearchList, user, userTokenAndUsername, 
+  const { videoSearchList, setVideoSearchList, user, 
     setUserTokenAndUsername } = useContext(UserContext);
   const userAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
-  // const [dropdownOpenLeft, setOpenLeft] = useState(false);  
-  const [dropdownOpen, setOpen] = useState(false);  
+  const [ dropdownOpenLeft, setOpenLeft ] = useState(false);  
+  const [ dropdownOpen, setOpen ] = useState(false);  
   const [ formSubmit, setFormSubmit ] = useState(false);
   const [ readyToRender, setReadyToRender ] = useState(false);
 
   const history = useHistory();
 
   const toggle = () => setOpen(!dropdownOpen);
-  // const toggleLeft = () => setOpenLeft(!dropdownOpenLeft);
+  const toggleLeft = () => setOpenLeft(!dropdownOpenLeft);
 
-  const [  
-    filter, 
-    handleChange, 
-    handleSubmit
-  ] = useInputFilter({ apiMethod: 'videoSearch', termKey: 'title', globalUpdateFunction: setVideoSearchList} );
+  const [ filter, handleChange, handleSubmit ] = useInputFilter({ 
+    apiMethod: 'videoSearch', 
+    termKey: 'title', 
+    globalUpdateFunction: setVideoSearchList} );
 
   
   useEffect( () => {
@@ -55,43 +54,49 @@ const NavBar = () => {
 
 
   const getUser = useCallback( async () => {
-    await UTubeApi.getUser(userTokenAndUsername.username);
-  }, [userTokenAndUsername]);
+    await UTubeApi.getUser(user.username);
+  }, [user]);
 
 
   // doesn't work as intended...
   useEffect( () => {
-    if(userTokenAndUsername.token){
+    if(user.token){
       getUser();
-      console.log('----------------------');
     }
     setReadyToRender(true);
-  }, [setUserTokenAndUsername, userTokenAndUsername, getUser, user]);
+  }, [getUser, user]);
 
 
   return (
     <> 
       { readyToRender && 
         <Navbar fixed='top' className='UTube-navbar navbar-dark'>
-          {/* <ButtonDropdown isOpen={dropdownOpenLeft} toggle={toggleLeft} nav inNavbar> */}
-          <UncontrolledDropdown nav inNavbar>
+          <ButtonDropdown 
+            isOpen={dropdownOpenLeft} 
+            style={{
+              width: '4em',
+              height: '2.2em',
+              marginBottom: '0.8em'
+            }}
+            toggle={toggleLeft} nav inNavbar>
             <DropdownToggle 
               className='navbar-dropdown-menu-toggle-button' nav
               style={{
                 backgroundColor: 'rgb(32, 32, 32)', 
-                width: '4em',
-                marginTop: '-0.8em',
-                height: '3em',
-                marginLeft: '0.9em'
+                width: '2.6em',
+                height: '2.2em',
+                marginLeft: '1.4em',
+                marginTop: '0'
               }}  
-            />
-            <img className='collapse-menu-hamburger-icon-collapse' src={sidebarMenuIcon} alt=''/>
+            > 
+              <img className='collapse-menu-hamburger-icon-collapse' src={sidebarMenuIcon} alt=''/>
+            </DropdownToggle>
             <DropdownMenu className='navbar-dropdown-menu' 
               style={{
                 backgroundColor: 'rgb(32, 32, 32)',
                 marginLeft: '0',
                 borderWidth: '0',
-                marginTop: '0.3em'
+                marginTop: '2.25em'
   
               }}
             >
@@ -104,7 +109,7 @@ const NavBar = () => {
                 </NavLink>
               </DropdownItem>
               <DropdownItem>
-                <NavLink to='/subscriptions'>
+                <NavLink to={user.token? '/subscriptions' : '/login'}>
                   <div className='nav-link-div'>
                     <FontAwesomeIcon icon={faUser} className="font-awesome-menu-icon" /> 
                       <p className='navlink-text'>Subscriptions</p>
@@ -113,7 +118,7 @@ const NavBar = () => {
               </DropdownItem>
               <DropdownItem divider style={{backgroundColor: 'rgb(64, 64, 64)'}}/>
               <DropdownItem>
-                <NavLink to='/liked-videos'>
+                <NavLink to={user.token? '/liked-videos' : '/login'}>
                   <div className='nav-link-div'>
                     <FontAwesomeIcon icon={faThumbsUp} className="font-awesome-menu-icon" /> 
                       <p className='navlink-text'>Liked Videos</p>
@@ -121,7 +126,7 @@ const NavBar = () => {
                 </NavLink>  
               </DropdownItem>
               <DropdownItem>
-                <NavLink to='/history'>
+                <NavLink to={user.token? '/history' : '/login'}>
                   <div className='nav-link-div'>
                     <FontAwesomeIcon icon={faHistory} className="font-awesome-menu-icon" /> 
                     <p className='navlink-text'>History</p>      
@@ -139,7 +144,7 @@ const NavBar = () => {
                 </div>
               }
             </DropdownMenu>
-          </UncontrolledDropdown>
+            </ButtonDropdown>
           <div style={{
               marginLeft: '-11em',
               marginBottom: '0.9em'
