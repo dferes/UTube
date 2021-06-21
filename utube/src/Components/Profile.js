@@ -20,7 +20,6 @@ const Profile = ({ about = false }) => {
     );
 
     setReadyToRender(true);
-    // console.log('in getOtherUser');
   }, [username, setReadyToRender, setOtherUser, setOtherUserVideos]);
 
 
@@ -101,19 +100,19 @@ const Profile = ({ about = false }) => {
 
           { !about && otherUserVideos.length !== 0 &&
             <div className='user-profile-video-card-grid'>
-            <hr style={{color: 'gray'}} />
-            { otherUserVideos.map( video => (
-              <VideoGridCard 
-                key={video.id}
-                id={video.id}
-                createdAt={video.createdAt}
-                title={video.title}
-                username={video.username}
-                url={video.url}
-                description={video.description}
-                thumbnail={video.thumbnailImage}
-              />
-            ))}
+              <hr style={{color: 'gray'}} />
+              { otherUserVideos.map( video => (
+                <VideoGridCard 
+                  key={video.id}
+                  id={video.id}
+                  createdAt={video.createdAt}
+                  title={video.title}
+                  username={video.username}
+                  url={video.url}
+                  description={video.description}
+                  thumbnail={video.thumbnailImage}
+                />
+              ))}
             </div>
           }
           { !about && otherUserVideos.length === 0 &&
