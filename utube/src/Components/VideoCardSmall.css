@@ -16,12 +16,14 @@
 }
   
 .video-card-small-image-div {
-    width: 10em;
-    height: 5.625em;  
+  width: 10em;
+  height: 5.625em;  
+  background-color: black;
+  text-align: center;
 }
   
 .video-card-small-image { 
-    width: 10em;  
+    max-width: 10em;  
     height: 5.625em;
 }
   
