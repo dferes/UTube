@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import UserContext from '../FormContext';
 import { Link } from 'react-router-dom';
 import './VideoCardSmall.css';
-// const defaultVideoThumbnail = process.env.PUBLIC_URL + 'images/default_video_thumbnail2.jpg';
 
 
 const VideoCardSmall = ({ id, createdAt, title, username, thumbnail }) => {
