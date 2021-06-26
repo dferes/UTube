@@ -11,9 +11,10 @@ import LikeList from './LikeList';
 import HistoryList from './HistoryList';
 import EditProfile from './EditProfile';
 import VideoUpload from './VideoUpload';
+import ScrollToTop from './ScrollToTop';
 
 
-const Routes = ( props ) => {
+const Routes = ( ) => {
   return (
     <Switch>
       <Route exact path='/'>
@@ -35,6 +36,7 @@ const Routes = ( props ) => {
         <VideoList />
       </Route>
       <Route exact path='/watch/:id'>
+        <ScrollToTop />
         <WatchVideo />
       </Route>
       <Route exact path='/subscriptions'>
@@ -47,11 +49,9 @@ const Routes = ( props ) => {
         <HistoryList />
       </Route>
       <Route exact path='/signup'>
-        {/* <Signup errorMessage={errorMessage} /> */}
         <Signup />
       </Route>
       <Route exact path='/login'>
-        {/* <Login errorMessage={errorMessage} /> */}
         <Login />
       </Route>
       <Redirect to='/' />
