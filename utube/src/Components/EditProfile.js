@@ -1,29 +1,42 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../FormContext';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import useFormHandler from '../hooks/useFormHandler';
+import UTubeApi from '../api';
 import './EditProfile.css';
 
 
 const EditProfile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, userTokenAndUsername } = useContext(UserContext);
   const history = useHistory();
   
-  const [ data, handleChange, handleSubmit, errorMessage, successMessage, setSuccessMessage ] = useFormHandler({ 
+  const [ data, handleChange, handleSubmit, errorMessage, , successMessage, setSuccessMessage ] = useFormHandler({ 
     apiMethod: 'userUpdate', 
     globalUpdateFunction: setUser,
-    successMessage_: 'Your profile has been updated!'    
+    successMessage_: 'Updated!'    
   });
 
+  const getUser = useCallback(async () => {
+    if(userTokenAndUsername.token){
+      await UTubeApi.setToken(userTokenAndUsername.token);
+      const user_ = await UTubeApi.getUser(userTokenAndUsername.username);
+      user_.token = userTokenAndUsername.token;
   
-  useEffect( () => {
-    if(successMessage) {
-      setSuccessMessage('');
-      history.push(`/profile/${user.username}`);
+      setUser( user_ );
     }
 
-  }, [successMessage, setSuccessMessage, user, history]);
+  }, [userTokenAndUsername, setUser]);  
+
+
+  useEffect( () => {
+    if( successMessage ) {
+      setSuccessMessage('');
+      getUser();
+      history.push(`/profile/${userTokenAndUsername.username}`);
+    }
+
+  }, [userTokenAndUsername, history, getUser, successMessage, setSuccessMessage]);
 
 
   return (
