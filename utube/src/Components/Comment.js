@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Comment.css';
 
 
-const Comment = ({ id, createdAt, username, content, userAvatar=null }) => {
+const Comment = ({ createdAt, username, content, userAvatar }) => {
 
     return (
       <div className='comment-column-div'>
