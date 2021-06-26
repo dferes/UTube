@@ -4,12 +4,12 @@
   text-align: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .video-watch-left-div-container {
-  width: 53em;
-  min-height: 100vh;
+  /* width: 53em;
+  min-height: 100vh; */
   float: left;
   margin-left: 2.5em;
   margin-top: 1.5em;
@@ -21,16 +21,13 @@
 
 .video-player-div {
   background-color: rgb(28, 28, 28) ;
-  width: 53em;
-  height: 29.8125em;
+  /* width: 53em;
+  height: 29.8125em; */
 }
 
-.video-player-thumbnail {
-  width: 53em;    
-}
 
 .video-player-video-details {
-  width: 53em;
+  /* width: 53em; */
   height: 4.5em;
   margin-top: 0.5em;
 
@@ -40,7 +37,7 @@
 }
 
 .video-watch-bottom-hr {
-  width: 53em;
+  /* width: 53em; */
   margin-top: 0.6em;
   color: gray;
 }
@@ -64,14 +61,18 @@
   margin-top: -1em;
 
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 53em;
+  max-width: 60em;
+  /* width: 80vw; */
+  /* min-width: 50em; */
   height: 2.2em;
 }
 
-/* .video-player-video-details-col1-div {
- 
-} */
+.video-player-video-details-col1-div {
+  text-align: left;
+
+}
 
 .video-player-views-and-date {
   color: rgb(156, 156, 156);
@@ -106,17 +107,8 @@
 }
 
 
-
-
-
-
-
-
-
-
-
 .video-watch-description-div {
-  width: 53em;
+  /* width: 53em; */
   min-height: 7em;
   margin-top: -0.4em;
 
@@ -130,11 +122,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 53em;
+  /* width: 53em; */
 }
 
 .video-watch-video-description-col1-div {
-  
 }
 
 .video-watch-video-creator-card {
@@ -149,6 +140,7 @@
 
 .video-watch-video-creator-avatar {
   width: 3em;
+  height: 3em;
   border-radius: 1.5em;
   margin-right: 0.7em;
   margin-left: 0.2em;
