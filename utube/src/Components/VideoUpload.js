@@ -5,6 +5,7 @@ import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import useFormHandler from '../hooks/useFormHandler';
 import './VideoUpload.css'
 import LoadingSpinner from './LoadingSpinner';
+import axios from 'axios';
 
 const VideoUpload = () => {
   const [ url, setUrl] = useState('');
@@ -17,7 +18,7 @@ const VideoUpload = () => {
   const history = useHistory();
   
 
-  const [ data, handleChange, handleSubmit, errorMessage ] = useFormHandler({ 
+  const [ data, handleChange, handleSubmit, errorMessage, setErrorMessage ] = useFormHandler({ 
     apiMethod: 'makeVideo', 
     globalUpdateFunction: setVideoUploaded,
   });
@@ -26,22 +27,32 @@ const VideoUpload = () => {
 
 
   const uploadFile = async (file) => {
+    setErrorMessage('');
     const url = "https://api.cloudinary.com/v1_1/dilw67t91/upload";
     const formData = new FormData();
+    
+    try {
+      if (file[0].size > 100000000) {
+        throw new RangeError();
+      }
 
-    formData.append("file", file[0]);
-    formData.append("upload_preset", "mszj6nzh");
+      formData.append("file", file[0]);
+      formData.append("upload_preset", "mszj6nzh");
 
-    const res = await fetch(url, {
-      method: 'POST',
-      body: formData
-    });
+      const res = await axios.post(url, formData);
+      setUrl(res.data.secure_url);
+      const thumbUrl = res.data.secure_url.substring(0, res.data.secure_url.length - 3) + 'jpg';
+      setThumbnailUrl(thumbUrl);
+    }catch( err ) {
+      setShowLoadingSpinner(false);
+      setShowSubmitButton(false);
+      if ( err instanceof RangeError ) {
+        setErrorMessage('The maximum file size is 100.00 MB');
+      }else {
+        setErrorMessage('Unsupported video format or file');
+      }
+    }
 
-    console.log('The response: ', res);
-    const resJson = await res.json();
-    setUrl(resJson.secure_url);
-    const thumbUrl = resJson.secure_url.substring(0, resJson.secure_url.length - 3) + 'jpg';
-    setThumbnailUrl(thumbUrl);
   }
 
 
@@ -77,18 +88,27 @@ const VideoUpload = () => {
           thumbnailImage: thumbnailUrl
         })} 
       >
-        <FormGroup>
-          <Label className='upload-form-label' for='url'>File</Label>
+        <FormGroup >
+          <Label 
+            style={{
+              width: '10em',
+              textAlign: 'left',
+              marginBottom: '0.3em',
+              marginTop: '0.5em'
+            }} 
+            className='upload-form-label' 
+            for='url'>File
+          </Label>
           <Input 
             ref={fileSelect}
             type='file'
             accept='video/*'
-            style={{ width: '20em', float: 'left', marginLeft: '1.5em' }}
+            style={{ float: 'left', width: '23em' }}
             name='url'
             id='file'            
             onChange={(evt) => handleFile(evt.target.files)}
           />
-          <div style={{float: 'right', width:'3em', height: '2.8em'}}>
+          <div style={{float: 'right', width:'3em', height: '2.2em'}}>
             { showLoadingSpinner  && <LoadingSpinner /> }
           </div>
         </FormGroup>
