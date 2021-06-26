@@ -23,48 +23,50 @@
 }
   
 .video-card-small-image { 
-    max-width: 10em;  
-    height: 5.625em;
+  max-width: 10em;  
+  height: 5.625em;
 }
   
 .video-card-small-body {
-    height: 5.625em;
-    width: 12em;
-    /* margin-left: 1em; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  height: 5.625em;
+  width: 12em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
   
 .video-card-small-title {
-    color: white;
-    margin-top: -0.1em;
-    margin-right: 0.1em;
-    margin-left: 0.3em;
-    align-self: flex-start;
-    font-size: 1em;
+  color: white;
+  margin-top: -0.1em;
+  margin-right: 0.1em;
+  margin-left: 0.3em;
+  text-align: left;
+  font-size: 1em;
+
+  overflow: hidden;
+  white-space: nowrap;
 }
   
 .video-card-small-username {
-    color: rgb(171, 170, 170);
-    align-self: flex-start;
-    margin-left: 0.4em;
-    margin-top: 0.9em;
-    font-size: 0.9em;
+  color: rgb(171, 170, 170);
+  align-self: flex-start;
+  margin-left: 0.4em;
+  margin-top: 0.9em;
+  font-size: 0.9em;
 }
  
 .video-card-small-created-at {
-    color: rgb(171, 170, 170);
-    align-self: flex-start;
-    margin-left: 0.6em;
-    margin-top: -1.4em;
-    font-size: 0.7em;
+  color: rgb(171, 170, 170);
+  align-self: flex-start;
+  margin-left: 0.6em;
+  margin-top: -1.4em;
+  font-size: 0.7em;
 }
 
 .video-card-small-description {
-    color: rgb(171, 170, 170);
-    align-self: flex-start;
-    margin-left: 1.05em;
-    margin-top: 0;
-    font-size: 0.9em;
+  color: rgb(171, 170, 170);
+  align-self: flex-start;
+  margin-left: 1.05em;
+  margin-top: 0;
+  font-size: 0.9em;
 }
