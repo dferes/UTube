@@ -3,7 +3,6 @@ import Comment from './Comment';
 import useFormHandler from '../hooks/useFormHandler';
 import UserContext from '../FormContext';
 import './CommentList.css';
-// const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
 
 
 const CommentList = ({ comments }) => {
