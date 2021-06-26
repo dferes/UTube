@@ -17,6 +17,8 @@ const WatchVideo = () => {
   const { currentVideo, setCurrentVideo, user, defaultAvatarImage, 
     userTokenAndUsername, setUser } = useContext(UserContext);
     
+  const [ width, setWidth ] = useState(window.innerWidth);
+  const breakPoint = 1000;  
   const [ subscribeButtonMessage, setSubscribeButtonMessage ] = useState('SUBSCRIBE');
   const [ likeButtonColor, setLikeButtonColor ] = useState('gray');
   const [ likeButtonFunction, setLikeButtonFunction ] = useState(null);
@@ -42,30 +44,15 @@ const WatchVideo = () => {
 
   const setVideo = useCallback( async () => {
     setCurrentVideo( await UTubeApi.getVideo(id));
-    
-    getUser();   
+    getUser();
+
   }, [setCurrentVideo, id, getUser]);
 
-
-
-  useEffect( () => {
-    const setVideoView = async (view) => {
-      await UTubeApi.setVideoView(view);
-    }
-      setVideo();
-     
-      setVideoView( { 
-        username: userTokenAndUsername.username,
-        videoId: id
-      });
-
-  }, [id, userTokenAndUsername, setVideo]);
-
-
-  useEffect( () => {
+  
+  const checkSubscriptionsAndLikes = useCallback( async () => {
     const subscribeClick = async () => {
       await UTubeApi.setSubscription( {
-        subscriberUsername: userTokenAndUsername.username, 
+        subscriberUsername: user.username, 
         subscribedToUsername: currentVideo.username 
       });
 
@@ -74,17 +61,17 @@ const WatchVideo = () => {
 
     const unsubscribeClick = async () => {
       await UTubeApi.unsubscribe( {
-        subscriberUsername: userTokenAndUsername.username, 
+        subscriberUsername: user.username, 
         subscribedToUsername: currentVideo.username 
       });
 
       setVideo();
     };
 
-    const likeClick = async () => {
-      await UTubeApi.setVideoLike( {
+   const likeClick = async () => {
+     await UTubeApi.setVideoLike( {
         videoId: currentVideo.id, 
-        username: userTokenAndUsername.username 
+        username: user.username 
       });
 
       setVideo();
@@ -93,36 +80,130 @@ const WatchVideo = () => {
     const unlikeClick = async () => {
       await UTubeApi.unlike( {
         videoId: currentVideo.id, 
-        username: userTokenAndUsername.username 
+        username: user.username 
       });
 
       setVideo();
     };
 
     
-    if( userTokenAndUsername.token ) {
+    if( user.token && currentVideo.id) {
 
       if (user.likes.includes(currentVideo.id)) {
+        console.log('i like this video!');
         setLikeButtonFunction( () => unlikeClick);
         setLikeButtonColor('white');
       }else {
+        console.log('i do not like this video!');
         setLikeButtonColor('gray');
         setLikeButtonFunction( () => likeClick);
       }
 
       if (user.subscriptions.includes(currentVideo.username)) {
+        console.log('Subscribed!');
         setSubscribeButtonMessage('UNSUBSCRIBE');
         setSubscribeButtonFunction( () => unsubscribeClick);
       } else {
+        console.log('Not subscribed!');
         setSubscribeButtonMessage('SUBSCRIBE');
         setSubscribeButtonFunction( () => subscribeClick);
       }
 
     }
+
+  }, [user, currentVideo, setVideo]);
+  
+
+  useEffect( () => {
+    const setVideoView = async (view) => {
+      await UTubeApi.setVideoView(view);
+    }
+    
+    setVideo(); 
+    setVideoView( { 
+      username: userTokenAndUsername.username,
+      videoId: id
+    });
+
+  }, [id, userTokenAndUsername, setVideo]);
+
+
+  useEffect( () => {
+    checkSubscriptionsAndLikes();
     setReadyToRender(true);
 
-    },[ user.likes, user.subscriptions, currentVideo, id, userTokenAndUsername, setVideo ]
+    },[ checkSubscriptionsAndLikes]
   );
+
+  // useEffect( () => {
+  //   const subscribeClick = async () => {
+  //     await UTubeApi.setSubscription( {
+  //       subscriberUsername: user.username, 
+  //       subscribedToUsername: currentVideo.username 
+  //     });
+
+  //     setVideo();
+  //   };
+
+  //   const unsubscribeClick = async () => {
+  //     await UTubeApi.unsubscribe( {
+  //       subscriberUsername: user.username, 
+  //       subscribedToUsername: currentVideo.username 
+  //     });
+
+  //     setVideo();
+  //   };
+
+  //   const likeClick = async () => {
+  //     await UTubeApi.setVideoLike( {
+  //       videoId: currentVideo.id, 
+  //       username: user.username 
+  //     });
+
+  //     setVideo();
+  //   };
+
+  //   const unlikeClick = async () => {
+  //     await UTubeApi.unlike( {
+  //       videoId: currentVideo.id, 
+  //       username: user.username 
+  //     });
+
+  //     setVideo();
+  //   };
+
+    
+  //   if( user.token && currentVideo.id) {
+
+  //     if (user.likes.includes(currentVideo.id)) {
+  //       console.log('i like this video!');
+  //       setLikeButtonFunction( () => unlikeClick);
+  //       setLikeButtonColor('white');
+  //     }else {
+  //       console.log('i do not like this video!');
+  //       setLikeButtonColor('gray');
+  //       setLikeButtonFunction( () => likeClick);
+  //     }
+
+  //     if (user.subscriptions.includes(currentVideo.username)) {
+  //       console.log('Subscribed!');
+  //       setSubscribeButtonMessage('UNSUBSCRIBE');
+  //       setSubscribeButtonFunction( () => unsubscribeClick);
+  //     } else {
+  //       console.log('Not subscribed!');
+  //       setSubscribeButtonMessage('SUBSCRIBE');
+  //       setSubscribeButtonFunction( () => subscribeClick);
+  //     }
+
+  //   }
+  //   setReadyToRender(true);
+  // }, [user, currentVideo, setVideo]);
+
+
+  useEffect( () => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleWindowResize);
+   });
 
 
   return (
@@ -136,7 +217,14 @@ const WatchVideo = () => {
           <div className='video-player-video-details'>
             <p className='video-player-title'>{currentVideo.title}</p>
             <div className='video-player-video-details-col-div'>
-              <div className='video-player-video-details-col1-div'>
+              <div 
+                className='video-player-video-details-col1-div'
+                style={{
+                  width: width<breakPoint ? '87.5vw': '60vw',
+                  maxWidth: width<breakPoint ? '68em': '60em',
+                  minWidth: width<breakPoint ? '45em': '50em'
+                }}  
+              >
                 <p className='video-player-views-and-date'>
                   {currentVideo.views.length} views . {currentVideo.createdAt}
                 </p>
@@ -184,8 +272,11 @@ const WatchVideo = () => {
           </div>
           <hr className='video-watch-bottom-hr'/>
           <CommentList comments={currentVideo.comments}/>
-        </div>      
-        <VideoListSmall  />            
+        </div>
+        { width >= breakPoint &&
+          <VideoListSmall  />
+        }
+        {/* <VideoListSmall /> */}
       </div>
       }
 
