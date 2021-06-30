@@ -14,8 +14,8 @@ import './WatchVideo.css';
 const WatchVideo = () => {
   let { id } = useParams();
   id = Number(id);
-  const { currentVideo, setCurrentVideo, user, defaultAvatarImage, 
-    userTokenAndUsername, setUser } = useContext(UserContext);
+  const { currentVideo, setCurrentVideo, user, userTokenAndUsername, 
+    setUser } = useContext(UserContext);
     
   const [ width, setWidth ] = useState(window.innerWidth);
   const breakPoint = 1000;  
@@ -25,10 +25,6 @@ const WatchVideo = () => {
   const [ subscribeButtonFunction, setSubscribeButtonFunction ] = useState(null);
   const [ readyToRender, setReadyToRender ] = useState(false);
 
-
-  const videoCreatorAvatar = currentVideo.userAvatar 
-    ? currentVideo.userAvatar 
-    : defaultAvatarImage;
 
   const getUser = useCallback(async () => {
     if(userTokenAndUsername.token){
@@ -251,7 +247,7 @@ const WatchVideo = () => {
               <div className='video-watch-video-description-col1-div'>
                 <div className='video-watch-video-creator-card'>
                   <Link to={`/profile/${currentVideo.username}`}>
-                    <img className='video-watch-video-creator-avatar' src={videoCreatorAvatar} alt='' />
+                    <img className='video-watch-video-creator-avatar' src={currentVideo.userAvatar} alt='' />
                   </Link>
                   <p className='video-watch-video-creator-username'>{currentVideo.username}</p>
                 </div>
@@ -276,10 +272,8 @@ const WatchVideo = () => {
         { width >= breakPoint &&
           <VideoListSmall  />
         }
-        {/* <VideoListSmall /> */}
       </div>
       }
-
     </>
   );  
 }

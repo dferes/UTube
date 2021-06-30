@@ -1,17 +1,14 @@
-import { useContext } from 'react';
-import UserContext from '../FormContext';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './VideoCardSmall.css';
 
 
 const VideoCardSmall = ({ id, createdAt, title, username, thumbnail }) => {
-  const { defaultVideoThumbnail } = useContext(UserContext);
-  
   return (
     <Link to={`/watch/${id}`}>
       <div className='video-card-small-div'>   
         <div className='video-card-small-image-div'>
-          <img className='video-card-small-image' src={thumbnail? thumbnail: defaultVideoThumbnail} alt=''/>
+          <img className='video-card-small-image' src={thumbnail} alt=''/>
         </div>
         <div className='video-card-small-body'>
           <h5 className='video-card-small-title'>{title}</h5>

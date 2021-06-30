@@ -28,9 +28,7 @@ const Profile = ({ about = false }) => {
     getOtherUser();
   }, [getOtherUser, readyToRender, username]);
 
-  const { user, defaultHeader, defaultAvatarImage } = useContext(UserContext);
-  const header = otherUser.coverImage? otherUser.coverImage: defaultHeader;
-  const otherUserAvatar = otherUser.avatarImage ? otherUser.avatarImage: defaultAvatarImage;
+  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -39,7 +37,7 @@ const Profile = ({ about = false }) => {
           <div 
             className='user-profile-row1-header'
             style={{
-              backgroundImage: `url(${header})`,
+              backgroundImage: `url(${otherUser.coverImage})`,
               textAlign: 'center'
               
             }}  
@@ -48,7 +46,7 @@ const Profile = ({ about = false }) => {
           <div className='user-profile-row2-top-bar'>
             <div className='user-profile-top-bar-row-div'>
               <div className='user-profile-user-card'>
-                <img className='user-profile-user-avatar' src={otherUserAvatar} alt=''/>
+                <img className='user-profile-user-avatar' src={otherUser.avatarImage} alt=''/>
                 <div className='user-profile-user-card-info-div'>
                   <p className='user-profile-username'>{otherUser.username}</p>
                   <p className='user-profile-user-likes'>{otherUser.subscribers.length} subscribers</p>

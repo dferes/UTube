@@ -5,7 +5,7 @@ import './VideoListSmall.css';
 
 
 const VideoListSmall = () => {
-  const { allVideoList, defaultVideoThumbnail } = useContext(UserContext);
+  const { allVideoList } = useContext(UserContext);
 
   return (
     <div className='video-list-small-div'>
@@ -18,10 +18,7 @@ const VideoListSmall = () => {
           username={video.username}
           url={video.url}
           description={video.description}
-          thumbnail={video.thumbnailImage 
-            ? video.thumbnailImage
-            : defaultVideoThumbnail
-          }
+          thumbnail={video.thumbnailImage}
         />
       ))}  
     </div>  

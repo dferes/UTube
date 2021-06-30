@@ -6,7 +6,7 @@ import './CommentList.css';
 
 
 const CommentList = ({ comments }) => {
-  const { user, currentVideo, setComment, defaultAvatarImage } = useContext(UserContext);
+  const { user, currentVideo, setComment } = useContext(UserContext);
   
   const [ data, handleChange, handleSubmit ] = useFormHandler({ 
     apiMethod: 'setVideoComment', 
@@ -21,17 +21,12 @@ const CommentList = ({ comments }) => {
   }
  
 
-  
-  const thisUserAvatar = user.avatarImage 
-    ? user.avatarImage
-    : defaultAvatarImage;
-
   return (
     <div className='comment-list-div'>
       <h2 className='comment-list-number-comments'>{comments.length} Comments</h2>  
       { user.token &&
         <div className='comment-list-comment-form-div'>
-          <img  src={thisUserAvatar} alt='' className='comment-list-this-user-avatar' />  
+          <img  src={user.avatarImage} alt='' className='comment-list-this-user-avatar' />  
           <form 
             className='comment-list-comment-form'
             onSubmit={ async (evt) => await handleCommentSubmit(evt)} 
@@ -60,7 +55,7 @@ const CommentList = ({ comments }) => {
             createdAt={comment.createdAt}
             username={comment.username}
             content={comment.content}
-            userAvatar={comment.userAvatar? comment.userAvatar : defaultAvatarImage }  
+            userAvatar={user.avatarImage }  
           />
         ))  
       }  

@@ -17,7 +17,6 @@ import {
 import UTubeApi from '../api';
 
 const UTubeLogo = process.env.PUBLIC_URL + 'images/UTube_Button2.png';
-const defaultAvatarImage = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
 const searchButtonIcon = process.env.PUBLIC_URL + 'images/search_glass_symbol.png';
 const sidebarMenuIcon = process.env.PUBLIC_URL + 'images/hamburger_icon5.png';
 
@@ -25,7 +24,7 @@ const sidebarMenuIcon = process.env.PUBLIC_URL + 'images/hamburger_icon5.png';
 const NavBar = () => {
   const { videoSearchList, setVideoSearchList, user, 
     setUserTokenAndUsername } = useContext(UserContext);
-  const userAvatar = user.avatarImage ? user.avatarImage: defaultAvatarImage;
+
   const [ dropdownOpenLeft, setOpenLeft ] = useState(false);  
   const [ dropdownOpen, setOpen ] = useState(false);  
   const [ formSubmit, setFormSubmit ] = useState(false);
@@ -139,7 +138,11 @@ const NavBar = () => {
                 <div className='collapse-menu-sign-in-button-div'>
                   <p>Sign in to like videos, comment, and subscribe.</p>
                   <Button href='/login' outline color='primary' className='sidebar-sign-in-button'>SIGN IN
-                    <img className='default-avatar-icon' src={defaultAvatarImage} alt=''></img>
+                    <img 
+                      className='default-avatar-icon' 
+                      src='http://getdrawings.com/free-icon/default-avatar-icon-68.png' 
+                      alt=''
+                    />
                   </Button> 
                 </div>
               }
@@ -178,7 +181,11 @@ const NavBar = () => {
           </div>
           { !user.token &&
             <Button href='/login' outline color='primary' className='navbar-sign-in-button'>SIGN IN
-            <img className='default-avatar-icon' src={defaultAvatarImage} alt='' />
+            <img 
+              className='default-avatar-icon' 
+              src='http://getdrawings.com/free-icon/default-avatar-icon-68.png' 
+              alt='' 
+            />
             </Button> 
           }
           { user.token && 
@@ -194,7 +201,7 @@ const NavBar = () => {
                   marginLeft: '8em'
                 }} 
               >
-                <img className='navbar-user-avatar' src={userAvatar} alt=''/>  
+                <img className='navbar-user-avatar' src={user.avatarImage} alt=''/>  
               </DropdownToggle>  
               <DropdownMenu className='navbar-user-dropdown-menu' 
                 style={{
