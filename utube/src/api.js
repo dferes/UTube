@@ -110,13 +110,9 @@ class UTubeApi {
   static async getUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
-
-    // will need to remove the ensureCorrectUser middleware from the api
   }
 
 
-
-  // add a user delete method here
    
   static async videoSearch(title='') {
     let res = await this.request(
@@ -217,6 +213,17 @@ class UTubeApi {
 
     return res.sub;
   }
+
+ 
+  static async getSubscriptions(data={}) {
+    let res = await this.request(
+      'subscriptions/',
+      data 
+    );
+
+    return res.subs;  
+  }
+
 
   static async setVideoView(view) {
     const { username, videoId } = view;
