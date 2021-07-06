@@ -1,0 +1,28 @@
+.subscription-card-main-div {
+  background-color: rgb(24, 24, 24);
+  width: 16em;
+  height: 13em;
+  margin-left: 1em;
+}
+
+.subscription-card-header-div {
+  height: 6em;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.subscription-card-user-avatar {
+  height: 5em;
+  width: 5em;
+  border-radius: 2.5em;
+  margin-top: 0.6em;
+  margin-left: 0.8em;  
+}
+
+.subscription-card-username {
+  color: white;
+  font-size: 1.2em;
+  margin-left: 0.8em;  
+}
