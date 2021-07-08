@@ -9,7 +9,6 @@ const SubscriptionList = () => {
   const { user } = useContext(UserContext);
   const [ readyToRender, setReadyToRender ] = useState(false);
   const [ subscriptions, setSubscriptions ] = useState([]);
-  const noResultImage = process.env.PUBLIC_URL + 'images/no_result_image.webp';
    
   useEffect( () => {
     const getSubs = async () => {
@@ -18,7 +17,7 @@ const SubscriptionList = () => {
 
     getSubs();
     setReadyToRender(true); 
-  }, [setReadyToRender, setSubscriptions]);
+  }, [setReadyToRender, setSubscriptions, user]);
 
 
   return (
