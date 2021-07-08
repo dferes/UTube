@@ -86,21 +86,17 @@ const WatchVideo = () => {
     if( user.token && currentVideo.id) {
 
       if (user.likes.includes(currentVideo.id)) {
-        console.log('i like this video!');
         setLikeButtonFunction( () => unlikeClick);
         setLikeButtonColor('white');
       }else {
-        console.log('i do not like this video!');
         setLikeButtonColor('gray');
         setLikeButtonFunction( () => likeClick);
       }
 
       if (user.subscriptions.includes(currentVideo.username)) {
-        console.log('Subscribed!');
         setSubscribeButtonMessage('UNSUBSCRIBE');
         setSubscribeButtonFunction( () => unsubscribeClick);
       } else {
-        console.log('Not subscribed!');
         setSubscribeButtonMessage('SUBSCRIBE');
         setSubscribeButtonFunction( () => subscribeClick);
       }
