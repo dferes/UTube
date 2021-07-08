@@ -29,7 +29,7 @@ const NavBar = () => {
   const [ dropdownOpen, setOpen ] = useState(false);  
   const [ formSubmit, setFormSubmit ] = useState(false);
   const [ readyToRender, setReadyToRender ] = useState(false);
-
+  const defaultAvatar = process.env.PUBLIC_URL + 'images/default_avatar_icon.png';
   const history = useHistory();
 
   const toggle = () => setOpen(!dropdownOpen);
@@ -140,7 +140,7 @@ const NavBar = () => {
                   <Button href='/login' outline color='primary' className='sidebar-sign-in-button'>SIGN IN
                     <img 
                       className='default-avatar-icon' 
-                      src='http://getdrawings.com/free-icon/default-avatar-icon-68.png' 
+                      src={defaultAvatar} 
                       alt=''
                     />
                   </Button> 
@@ -183,7 +183,7 @@ const NavBar = () => {
             <Button href='/login' outline color='primary' className='navbar-sign-in-button'>SIGN IN
             <img 
               className='default-avatar-icon' 
-              src='http://getdrawings.com/free-icon/default-avatar-icon-68.png' 
+              src={defaultAvatar} 
               alt='' 
             />
             </Button> 
