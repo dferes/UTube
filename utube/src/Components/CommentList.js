@@ -55,7 +55,7 @@ const CommentList = ({ comments }) => {
             createdAt={comment.createdAt}
             username={comment.username}
             content={comment.content}
-            userAvatar={user.avatarImage }  
+            userAvatar={comment.userAvatar }  
           />
         ))  
       }  
