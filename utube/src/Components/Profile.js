@@ -13,7 +13,7 @@ const Profile = ({ about = false }) => {
   const [ otherUser, setOtherUser ] = useState({});
   const [ readyToRender, setReadyToRender ] = useState(false);
   const [ otherUserVideos, setOtherUserVideos] = useState({});
-  
+
   const getOtherUser = useCallback( async () => {
     setOtherUser(await getUser_(username));
     
@@ -26,9 +26,8 @@ const Profile = ({ about = false }) => {
 
 
   useEffect( () => {
-    if(!readyToRender)
     getOtherUser();
-  }, [getOtherUser, readyToRender, username]);
+  }, [getOtherUser, username]);
 
   const { user } = useContext(UserContext);
 
