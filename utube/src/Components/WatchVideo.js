@@ -6,7 +6,10 @@ import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Button } from 'reactstrap';
 import CommentList from './CommentList';
 import VideoListSmall from './VideoListSmall';
-import UTubeApi from '../api';
+import { likeClick, unlikeClick} from '../apiUtility/likes';
+import { subscribeClick, unsubscribeClick} from '../apiUtility/subscriptions';
+import { setVideoView, getVideo } from '../apiUtility/videos';
+import { setToken, getUser_ } from '../apiUtility/users';
 import VideoPlayer from './VideoPlayer';
 import './WatchVideo.css';
 
@@ -14,22 +17,27 @@ import './WatchVideo.css';
 const WatchVideo = () => {
   let { id } = useParams();
   id = Number(id);
-  const { currentVideo, setCurrentVideo, user, userTokenAndUsername, 
-    setUser } = useContext(UserContext);
+  const { currentVideo, setCurrentVideo, user, userTokenAndUsername, setUser } = useContext(UserContext);
     
   const [ width, setWidth ] = useState(window.innerWidth);
   const breakPoint = 1000;  
+
   const [ subscribeButtonMessage, setSubscribeButtonMessage ] = useState('SUBSCRIBE');
   const [ likeButtonColor, setLikeButtonColor ] = useState('gray');
   const [ likeButtonFunction, setLikeButtonFunction ] = useState(null);
   const [ subscribeButtonFunction, setSubscribeButtonFunction ] = useState(null);
   const [ readyToRender, setReadyToRender ] = useState(false);
 
+  useEffect( () => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleWindowResize);
+   });
+
 
   const getUser = useCallback(async () => {
     if(userTokenAndUsername.token){
-      await UTubeApi.setToken(userTokenAndUsername.token);
-      const user_ = await UTubeApi.getUser(userTokenAndUsername.username);
+      await setToken(userTokenAndUsername.token);
+      const user_ = await getUser_(userTokenAndUsername.username);
       user_.token = userTokenAndUsername.token;
   
       setUser( user_ );
@@ -39,78 +47,13 @@ const WatchVideo = () => {
 
 
   const setVideo = useCallback( async () => {
-    setCurrentVideo( await UTubeApi.getVideo(id));
+    setCurrentVideo( await getVideo(id));
     getUser();
 
   }, [setCurrentVideo, id, getUser]);
 
   
-  const checkSubscriptionsAndLikes = useCallback( async () => {
-    const subscribeClick = async () => {
-      await UTubeApi.setSubscription( {
-        subscriberUsername: user.username, 
-        subscribedToUsername: currentVideo.username 
-      });
-
-      setVideo();
-    };
-
-    const unsubscribeClick = async () => {
-      await UTubeApi.unsubscribe( {
-        subscriberUsername: user.username, 
-        subscribedToUsername: currentVideo.username 
-      });
-
-      setVideo();
-    };
-
-   const likeClick = async () => {
-     await UTubeApi.setVideoLike( {
-        videoId: currentVideo.id, 
-        username: user.username 
-      });
-
-      setVideo();
-    };
-
-    const unlikeClick = async () => {
-      await UTubeApi.unlike( {
-        videoId: currentVideo.id, 
-        username: user.username 
-      });
-
-      setVideo();
-    };
-
-    
-    if( user.token && currentVideo.id) {
-
-      if (user.likes.includes(currentVideo.id)) {
-        setLikeButtonFunction( () => unlikeClick);
-        setLikeButtonColor('white');
-      }else {
-        setLikeButtonColor('gray');
-        setLikeButtonFunction( () => likeClick);
-      }
-
-      if (user.subscriptions.includes(currentVideo.username)) {
-        setSubscribeButtonMessage('UNSUBSCRIBE');
-        setSubscribeButtonFunction( () => unsubscribeClick);
-      } else {
-        setSubscribeButtonMessage('SUBSCRIBE');
-        setSubscribeButtonFunction( () => subscribeClick);
-      }
-
-    }
-
-  }, [user, currentVideo, setVideo]);
-  
-
-  useEffect( () => {
-    const setVideoView = async (view) => {
-      await UTubeApi.setVideoView(view);
-    }
-    
+  useEffect( () => {    
     setVideo(); 
     setVideoView( { 
       username: userTokenAndUsername.username,
@@ -119,83 +62,29 @@ const WatchVideo = () => {
 
   }, [id, userTokenAndUsername, setVideo]);
 
-
   useEffect( () => {
-    checkSubscriptionsAndLikes();
-    setReadyToRender(true);
-
-    },[ checkSubscriptionsAndLikes]
-  );
-
-  // useEffect( () => {
-  //   const subscribeClick = async () => {
-  //     await UTubeApi.setSubscription( {
-  //       subscriberUsername: user.username, 
-  //       subscribedToUsername: currentVideo.username 
-  //     });
-
-  //     setVideo();
-  //   };
-
-  //   const unsubscribeClick = async () => {
-  //     await UTubeApi.unsubscribe( {
-  //       subscriberUsername: user.username, 
-  //       subscribedToUsername: currentVideo.username 
-  //     });
-
-  //     setVideo();
-  //   };
-
-  //   const likeClick = async () => {
-  //     await UTubeApi.setVideoLike( {
-  //       videoId: currentVideo.id, 
-  //       username: user.username 
-  //     });
-
-  //     setVideo();
-  //   };
-
-  //   const unlikeClick = async () => {
-  //     await UTubeApi.unlike( {
-  //       videoId: currentVideo.id, 
-  //       username: user.username 
-  //     });
-
-  //     setVideo();
-  //   };
-
-    
-  //   if( user.token && currentVideo.id) {
-
-  //     if (user.likes.includes(currentVideo.id)) {
-  //       console.log('i like this video!');
-  //       setLikeButtonFunction( () => unlikeClick);
-  //       setLikeButtonColor('white');
-  //     }else {
-  //       console.log('i do not like this video!');
-  //       setLikeButtonColor('gray');
-  //       setLikeButtonFunction( () => likeClick);
-  //     }
-
-  //     if (user.subscriptions.includes(currentVideo.username)) {
-  //       console.log('Subscribed!');
-  //       setSubscribeButtonMessage('UNSUBSCRIBE');
-  //       setSubscribeButtonFunction( () => unsubscribeClick);
-  //     } else {
-  //       console.log('Not subscribed!');
-  //       setSubscribeButtonMessage('SUBSCRIBE');
-  //       setSubscribeButtonFunction( () => subscribeClick);
-  //     }
-
-  //   }
-  //   setReadyToRender(true);
-  // }, [user, currentVideo, setVideo]);
+    if(currentVideo.id) setReadyToRender(true);
+  }, [currentVideo, readyToRender]);
 
 
   useEffect( () => {
-    const handleWindowResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleWindowResize);
-   });
+    if (user.username && currentVideo.id) {
+      let subscribed_ = user.subscriptions.includes(currentVideo.username);
+      let likesVideo_ = user.likes.includes(currentVideo.id);
+
+      setLikeButtonColor(likesVideo_ ? 'white': 'gray');
+      setLikeButtonFunction( () => likesVideo_ ? unlikeClick: likeClick);
+      setSubscribeButtonMessage(subscribed_ ? 'UNSUBSCRIBE': 'SUBSCRIBE');
+      setSubscribeButtonFunction( () => subscribed_ ? unsubscribeClick: subscribeClick);
+    } 
+  },[
+      setLikeButtonColor, 
+      setLikeButtonFunction, 
+      setSubscribeButtonMessage, 
+      setSubscribeButtonFunction,
+      user, 
+      currentVideo
+    ]);
 
 
   return (
@@ -228,8 +117,9 @@ const WatchVideo = () => {
                   className="font-awesome-thumbs-up-icon"
                   style={{color: likeButtonColor}}
                   onClick={ async () => {
-                    await likeButtonFunction();
-                  }}   
+                    await likeButtonFunction(user, currentVideo); 
+                    await setVideo();
+                  }}  
                 />
                 <p className='video-player-video-likes'>{currentVideo.likes.length}</p>
               </div>
@@ -253,7 +143,10 @@ const WatchVideo = () => {
                 <Button 
                   color='danger' 
                   className='video-watch-subscribe-button'
-                  onClick={ async () => await subscribeButtonFunction() }  
+                  onClick={ async () => {
+                    await subscribeButtonFunction(user, currentVideo);
+                    await setVideo();
+                  }}  
                   >{ subscribeButtonMessage }</Button>
               </div>
               }
