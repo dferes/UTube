@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import UserContext from '../FormContext';
-import UTubeApi from '../api';
+import { getSubscriptions } from '../apiUtility/subscriptions';
 import SubscriptionCard from './SubscriptionCard';
 import './SubscriptionList.css';
 
@@ -12,7 +12,7 @@ const SubscriptionList = () => {
    
   useEffect( () => {
     const getSubs = async () => {
-      setSubscriptions( await UTubeApi.getSubscriptions({subscriberUsername: user.username}) );
+      setSubscriptions( await getSubscriptions(user.username));
     }
 
     getSubs();

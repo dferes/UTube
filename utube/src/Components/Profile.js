@@ -1,7 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router';
-import UTubeApi from '../api';
+import { videoSearch } from '../apiUtility/videos';
+import { getUser_ } from '../apiUtility/users';
+
 import UserContext from '../FormContext';
 import VideoGridCard from './VideoGridCard';
 import './Profile.css';
@@ -13,10 +15,10 @@ const Profile = ({ about = false }) => {
   const [ otherUserVideos, setOtherUserVideos] = useState({});
   
   const getOtherUser = useCallback( async () => {
-    setOtherUser(await UTubeApi.getUser(username));
+    setOtherUser(await getUser_(username));
     
     setOtherUserVideos( 
-      await UTubeApi.videoSearch({ username: username})
+      await videoSearch({ username: username})
     );
 
     setReadyToRender(true);

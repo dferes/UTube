@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import UserContext from '../FormContext';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import useFormHandler from '../hooks/useFormHandler';
-import UTubeApi from '../api';
+import { setToken, getUser_ } from '../apiUtility/users';
 import './EditProfile.css';
 
 
@@ -19,8 +19,8 @@ const EditProfile = () => {
 
   const getUser = useCallback(async () => {
     if(userTokenAndUsername.token){
-      await UTubeApi.setToken(userTokenAndUsername.token);
-      const user_ = await UTubeApi.getUser(userTokenAndUsername.username);
+      await setToken(userTokenAndUsername.token);
+      const user_ = await getUser_(userTokenAndUsername.username);
       user_.token = userTokenAndUsername.token;
   
       setUser( user_ );

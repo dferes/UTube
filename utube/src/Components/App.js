@@ -4,8 +4,9 @@ import Routes from './Routes';
 import NavBar from './NavBar';
 import FormContext from '../FormContext';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { setToken, getUser_ } from '../apiUtility/users';
+import { videoSearch, getVideo } from '../apiUtility/videos';
 import './App.css';
-import UTubeApi from '../api';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
 
   useEffect( () => {
     const setHomePageVideos = async () => {
-      setAllVideoList( await UTubeApi.videoSearch());
+      setAllVideoList( await videoSearch());
     }
     setHomePageVideos();
   }, [setAllVideoList]);
@@ -32,7 +33,7 @@ function App() {
 
   useEffect( () => {
     const setCurrentVideoToWatch = async (videoId) => {
-      setCurrentVideo( await UTubeApi.getVideo(videoId));
+      setCurrentVideo( await getVideo(videoId));
     }
 
     if (comment.content) {
@@ -41,7 +42,6 @@ function App() {
     } 
   }, [comment, setComment, setCurrentVideo, currentVideo]);
 
-
   // Logs the user in or out if userTokenAndUsername.token is set to '' */
   useEffect( () => {
     const logout = async () => {
@@ -49,8 +49,8 @@ function App() {
     };
     
     const login = async (username) => {
-      await UTubeApi.setToken(userTokenAndUsername.token);
-      const user_ = await UTubeApi.getUser(username);
+      await setToken(userTokenAndUsername.token);
+      const user_ = await getUser_(username);
       user_.token = userTokenAndUsername.token;
 
       await setUser( user_ );

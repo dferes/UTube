@@ -14,7 +14,7 @@ import {
   faIdCard,
   faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
-import UTubeApi from '../api';
+import { getUser_ } from '../apiUtility/users';
 
 const UTubeLogo = process.env.PUBLIC_URL + 'images/UTube_Button2.png';
 const searchButtonIcon = process.env.PUBLIC_URL + 'images/search_glass_symbol.png';
@@ -53,11 +53,10 @@ const NavBar = () => {
 
 
   const getUser = useCallback( async () => {
-    await UTubeApi.getUser(user.username);
+    await getUser_(user.username);
   }, [user]);
 
 
-  // doesn't work as intended...
   useEffect( () => {
     if(user.token){
       getUser();
