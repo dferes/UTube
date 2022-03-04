@@ -6,11 +6,11 @@ Deployed with surge: https://dylan-feres-utube.surge.sh
 
 ## Project Screen Shots
 
-<img src='https://raw.githubusercontent.com/dferes/UTube/master/utube/UTube_screenshot.png'><br>
+<img src='https://raw.githubusercontent.com/dferes/UTube/master/UTube_screenshot.png'><br>
 
-<img src='https://raw.githubusercontent.com/dferes/UTube/master/utube/UTube_screenshot_2.png'><br>
+<img src='https://raw.githubusercontent.com/dferes/UTube/master/UTube_screenshot_2.png'><br>
 
-<img src='https://raw.githubusercontent.com/dferes/UTube/master/utube/UTube_screenshot_3.png'><br>
+<img src='https://raw.githubusercontent.com/dferes/UTube/master/UTube_screenshot_3.png'><br>
 
 ## Installation and Setup Instructions
 
